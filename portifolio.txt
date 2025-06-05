@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfólio de Arquitetura</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1a202c;
+            overflow-x: hidden;
+            padding-top: 70px; /* Space for fixed header */
+        }
+
+        /* Header Navigation */
+        #mainHeader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid #f0f0f0;
+            z-index: 1000;
+            padding: 0 5%;
+            height: 70px;
+            display: flex;
+            align-items: center;
+        }
+
+        .header-content {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between; 
+            align-items: center;
+        }
+        
+        .header-logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #007aff;
+            text-decoration: none;
+        }
+
+        .main-nav { 
+            /* Links removidos, pode ser usado para outros elementos se necessário */
+        }
+
+        #mobileMenuToggle {
+            display: none; 
+            background: none;
+            border: none;
+            color: #2c2c2c;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Main Content Area */
+        #mainContent {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* General Tab Content Styling */
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.5s ease-out; }
+        .project-section-content { display: none; }
+        .project-section-content.active { display: block; animation: fadeInInner 0.4s ease-out; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInInner {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Section Titles */
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5em;
+            color: #1a202c;
+            line-height: 1.2;
+        }
+        .page-subtitle {
+            font-size: 1.1rem;
+            color: #718096;
+            margin-bottom: 2.5em;
+            font-weight: 400;
+        }
+
+        /* Home Page Specifics */
+        #homePage .home-intro {
+            text-align: center;
+            margin-bottom: 3em;
+        }
+        #homePage .home-intro .page-title {
+             font-size: 3rem;
+        }
+         #homePage .home-intro .page-subtitle {
+             font-size: 1.2rem;
+             max-width: 600px;
+             margin-left: auto;
+             margin-right: auto;
+        }
+
+        .home-section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-top: 2.5em;
+            margin-bottom: 1em;
+            padding-bottom: 0.5em;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        #homePage .home-section-title:first-of-type {
+            margin-top: 0;
+        }
+
+        .author-home-link-block {
+            display: flex; 
+            align-items: center; 
+            gap: 20px; 
+            background-color: #f9fafb;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 2.5em;
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+        }
+        .author-home-link-block:hover {
+            background-color: #f0f4f8;
+        }
+        .author-home-link-block img.author-placeholder-img {
+            width: 80px; 
+            height: 80px;
+            border-radius: 50%; 
+            object-fit: cover;
+            flex-shrink: 0; 
+            border: 2px solid #007aff30; 
+        }
+        .author-home-link-block .author-text-content h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 0.25em;
+        }
+        .author-home-link-block .author-text-content p {
+            font-size: 1rem;
+            color: #718096;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        .project-list-item {
+            display: block; 
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            margin-bottom: 2em;
+            text-decoration: none;
+            min-height: 250px; 
+            background-color: #333; 
+        }
+        .project-list-item:last-child {
+            margin-bottom: 0;
+        }
+        .project-list-item-bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.55); 
+            transition: transform 0.4s ease, filter 0.4s ease;
+        }
+        .project-list-item:hover .project-list-item-bg-image {
+            transform: scale(1.05);
+            filter: brightness(0.45);
+        }
+        .project-list-item-content {
+            position: relative; 
+            z-index: 2;
+            padding: 25px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end; 
+            color: white;
+        }
+        .project-list-item-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.25em;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+        .project-list-item-subtitle {
+            font-size: 1rem;
+            color: #e2e8f0; 
+            font-weight: 400;
+            line-height: 1.6;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        /* Project Section Tabs */
+        .project-section-nav {
+            margin-bottom: 2em;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.5em;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .project-section-tab {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #4a5568;
+            background-color: transparent;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+        .project-section-tab:hover {
+            background-color: #f7fafc;
+            color: #007aff;
+        }
+        .project-section-tab.active-section-tab {
+            background-color: #eef6ff;
+            color: #007aff;
+            font-weight: 600;
+        }
+
+        /* Content Styling */
+        .content-section {
+            padding-top: 1em;
+        }
+        .content-section h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.8em;
+            color: #2d3748;
+        }
+        .prose {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #2d3748;
+        }
+        .prose p { margin-bottom: 1.5em; }
+        .prose strong { font-weight: 600; color: #1a202c; }
+        .prose img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 1em;
+            margin-bottom: 1.5em;
+            border: 1px solid #e2e8f0;
+        }
+        .prose .placeholder-3d {
+            background-color: #f7fafc;
+            aspect-ratio: 16 / 9;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #a0aec0;
+            border: 1px solid #e2e8f0;
+            margin-top: 1em;
+        }
+
+        /* Author Section Specifics */
+        .author-section .author-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1.5em;
+            border: 3px solid #007aff;
+        }
+        .author-section .contact-info p { margin-bottom: 0.5em; }
+        .author-section .social-links a { color: #007aff; text-decoration: none; font-weight: 500; }
+        .author-section .social-links a:hover { text-decoration: underline; }
+        .author-section .social-links i { margin-right: 0.5em; }
+
+        /* Footer */
+        #mainFooter {
+            text-align: center;
+            padding: 30px 20px; 
+            margin-top: 50px; 
+            font-size: 0.85rem; 
+            color: #718096; /* Softer gray for less emphasis */
+            border-top: 1px solid #f0f0f0; /* Lighter border */
+        }
+        .footer-social-links {
+            margin-top: 10px;
+        }
+        .footer-social-links a {
+            color: #718096;
+            margin: 0 8px;
+            font-size: 1.1rem; /* Slightly larger icons */
+            transition: color 0.2s ease;
+        }
+        .footer-social-links a:hover {
+            color: #007aff;
+        }
+
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            body { padding-top: 60px; }
+            #mainHeader { height: 60px; padding: 0 15px; }
+            .header-logo { font-size: 1.1rem; }
+            
+            .page-title { font-size: 2rem; }
+            #homePage .home-intro .page-title { font-size: 2.2rem; }
+            .home-section-title { font-size: 1.5rem; }
+            .project-list-item-title { font-size: 1.5rem; }
+            .author-home-link-block { flex-direction: column; align-items: flex-start; }
+            .author-home-link-block img.author-placeholder-img { margin-bottom: 15px; }
+            .author-home-link-block .author-text-content h3 { font-size: 1.5rem; }
+
+
+            #mainContent { padding: 25px 15px; }
+            .project-section-nav { flex-direction: column; align-items: flex-start;}
+            .project-section-tab { width: 100%; text-align: left; margin-bottom: 5px;}
+
+            .author-section .author-image { width: 100px; height: 100px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header id="mainHeader">
+        <div class="header-content">
+            <a href="#" data-tab-target="homePage" class="header-logo main-nav-link">Portfólio</a>
+            <nav class="main-nav" id="mainNavLinks">
+                <!-- Links removidos do header desktop -->
+            </nav>
+            <button id="mobileMenuToggle" aria-label="Abrir menu" style="display: none;">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main id="mainContent">
+        <!-- Home Page Content -->
+        <div id="homePage" class="tab-content active">
+            <div class="home-intro">
+                <h1 class="page-title">Arquitetura que Inspira</h1>
+                <p class="page-subtitle">Explorando a intersecção entre forma, função e significado. Bem-vindo ao meu portfólio de projetos arquitetônicos.</p>
+            </div>
+
+            <h2 class="home-section-title">Sobre o Autor</h2>
+            <a href="#" data-tab-target="autor" class="author-home-link-block main-nav-link-internal">
+                <img src="https://placehold.co/100x100/007AFF/FFFFFF?text=Autor&font=inter" alt="Foto do Autor" class="author-placeholder-img">
+                <div class="author-text-content">
+                    <h3>Nome do Estudante</h3>
+                    <p>Conheça mais sobre a minha jornada, filosofia de design e habilidades como futuro arquiteto e urbanista.</p>
+                </div>
+            </a>
+
+            <h2 class="home-section-title">Projetos em Destaque</h2>
+            <div class="project-list">
+                <a href="#" data-tab-target="projeto1" class="project-list-item main-nav-link-internal">
+                    <div class="project-list-item-bg-image" style="background-image: url('https://placehold.co/600x400/A0AEC0/FFFFFF?text=Projeto+1&font=inter');"></div>
+                    <div class="project-list-item-content">
+                        <h3 class="project-list-item-title">Residência Contemporânea Vale Verde</h3>
+                        <p class="project-list-item-subtitle">Uma exploração da funcionalidade e integração com a natureza.</p>
+                    </div>
+                </a>
+                <a href="#" data-tab-target="projeto2" class="project-list-item main-nav-link-internal">
+                    <div class="project-list-item-bg-image" style="background-image: url('https://placehold.co/600x400/718096/FFFFFF?text=Projeto+2&font=inter');"></div>
+                    <div class="project-list-item-content">
+                        <h3 class="project-list-item-title">Revitalização Urbana Praça Central</h3>
+                        <p class="project-list-item-subtitle">Transformando espaços públicos para a comunidade.</p>
+                    </div>
+                </a>
+                <a href="#" data-tab-target="projeto3" class="project-list-item main-nav-link-internal">
+                    <div class="project-list-item-bg-image" style="background-image: url('https://placehold.co/600x400/4A5568/FFFFFF?text=Projeto+3&font=inter');"></div>
+                    <div class="project-list-item-content">
+                        <h3 class="project-list-item-title">Edifício Comercial InovaCenter</h3>
+                        <p class="project-list-item-subtitle">Design inovador para um ambiente de trabalho dinâmico.</p>
+                    </div>
+                </a>
+                 <a href="#" data-tab-target="projeto4" class="project-list-item main-nav-link-internal">
+                    <div class="project-list-item-bg-image" style="background-image: url('https://placehold.co/600x400/2D3748/FFFFFF?text=Projeto+4&font=inter');"></div>
+                    <div class="project-list-item-content">
+                        <h3 class="project-list-item-title">Interiores Corporativos TechHub</h3>
+                        <p class="project-list-item-subtitle">Soluções de design de interiores que refletem a identidade da marca.</p>
+                    </div>
+                </a>
+                 <a href="#" data-tab-target="projeto5" class="project-list-item main-nav-link-internal">
+                    <div class="project-list-item-bg-image" style="background-image: url('https://placehold.co/600x400/1A202C/FFFFFF?text=Projeto+5&font=inter');"></div>
+                    <div class="project-list-item-content">
+                        <h3 class="project-list-item-title">Paisagismo Residencial Oásis</h3>
+                        <p class="project-list-item-subtitle">Criação de espaços externos que convidam à contemplação.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Project 1 Content -->
+        <div id="projeto1" class="tab-content">
+            <h1 class="page-title">Residência Contemporânea Vale Verde</h1>
+            <p class="page-subtitle">Uma exploração da funcionalidade e integração com a natureza, onde a luz e os materiais se encontram para criar espaços acolhedores e fluidos.</p>
+            <nav class="project-section-nav">
+                <button data-section-target="p1-descritiva" class="project-section-tab p1-section-tab active-section-tab">Parte Descritiva</button>
+                <button data-section-target="p1-estudo" class="project-section-tab p1-section-tab">Estudo Preliminar</button>
+                <button data-section-target="p1-preprojeto" class="project-section-tab p1-section-tab">Pré-Projeto</button>
+                <button data-section-target="p1-anteprojeto" class="project-section-tab p1-section-tab">Anteprojeto</button>
+                <button data-section-target="p1-3d" class="project-section-tab p1-section-tab">Visualização 3D</button>
+            </nav>
+            <div id="p1-descritiva" class="project-section-content active content-section">
+                <h3>Conceito e Descrição</h3>
+                <div class="prose">
+                    <p>Este projeto inaugural explora a intersecção entre a funcionalidade residencial contemporânea e a integração harmoniosa com o entorno natural. O conceito central reside na criação de espaços fluidos que maximizam a iluminação natural e promovem uma conexão visual constante com a paisagem circundante. A materialidade busca um equilíbrio entre elementos rústicos e acabamentos modernos, resultando em uma estética acolhedora e sofisticada.</p>
+                    <p>A investigação partiu da análise topográfica do terreno e das condicionantes climáticas locais, como a trajetória solar e os ventos predominantes. Esses fatores foram determinantes para a implantação da edificação e para o desenho das aberturas, visando otimizar o conforto térmico e a eficiência energética. A volumetria foi concebida de forma a minimizar o impacto visual na paisagem, utilizando linhas horizontais e uma paleta de cores que mimetiza os tons naturais da região.</p>
+                </div>
+            </div>
+            <div id="p1-estudo" class="project-section-content content-section">
+                <h3>Estudo Preliminar</h3>
+                <div class="prose">
+                    <p>Documentos e esquemas iniciais de investigação do Projeto 1, detalhando as primeiras ideias, esboços conceituais e análises do sítio.</p>
+                    <img src="https://placehold.co/900x500/E9E9EB/4A5568?text=Esquema+Estudo+Projeto+1&font=inter" alt="Esquema Estudo Projeto 1">
+                </div>
+            </div>
+            <div id="p1-preprojeto" class="project-section-content content-section">
+                <h3>Pré-Projeto</h3>
+                <div class="prose">
+                    <p>Estudos de viabilidade e decisões espaciais iniciais, incluindo plantas baixas preliminares e zoneamento funcional.</p>
+                    <img src="https://placehold.co/900x500/DFE8FA/3B82F6?text=Planta+Pre-Projeto+1&font=inter" alt="Planta Pré-Projeto 1">
+                </div>
+            </div>
+            <div id="p1-anteprojeto" class="project-section-content content-section">
+                <h3>Anteprojeto</h3>
+                <div class="prose">
+                    <p>Representações técnicas mais detalhadas do Projeto 1, incluindo cortes, elevações e especificações preliminares de materiais.</p>
+                    <img src="https://placehold.co/900x500/FEE2E2/DC2626?text=Corte+Tecnico+Anteprojeto+1&font=inter" alt="Corte Técnico Anteprojeto 1">
+                </div>
+            </div>
+            <div id="p1-3d" class="project-section-content content-section">
+                <h3>Visualização 3D</h3>
+                <div class="prose">
+                    <p>Exibição interativa ou visual do modelo 3D do Projeto 1. (Aqui pode ser um embed do Sketchfab, um visualizador Three.js ou imagens renderizadas).</p>
+                    <div class="placeholder-3d">Visualização 3D (Placeholder)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project 2 Content -->
+        <div id="projeto2" class="tab-content">
+            <h1 class="page-title">Revitalização Urbana Praça Central</h1>
+            <p class="page-subtitle">Transformando espaços públicos para a comunidade, com foco na sustentabilidade e no convívio social.</p>
+             <nav class="project-section-nav">
+                <button data-section-target="p2-descritiva" class="project-section-tab p2-section-tab active-section-tab">Parte Descritiva</button>
+                <button data-section-target="p2-estudo" class="project-section-tab p2-section-tab">Estudo Preliminar</button>
+            </nav>
+            <div id="p2-descritiva" class="project-section-content active content-section">
+                <h3>Conceito e Descrição</h3>
+                 <div class="prose">
+                    <p>A proposta para o Projeto 2 foca na revitalização de um espaço urbano subutilizado, transformando-o em um ponto de encontro comunitário vibrante e multifuncional. O desafio conceitual reside em conciliar a preservação de elementos históricos existentes com a introdução de novas estruturas que atendam às necessidades contemporâneas de lazer, cultura e comércio local.</p>
+                </div>
+            </div>
+             <div id="p2-estudo" class="project-section-content content-section">
+                <h3>Estudo Preliminar</h3>
+                <div class="prose">
+                    <p>Conteúdo do estudo preliminar do Projeto 2, com análises urbanísticas e levantamento de demandas da comunidade.</p>
+                    <img src="https://placehold.co/900x500/E9E9EB/4A5568?text=Esquema+Estudo+Projeto+2&font=inter" alt="Esquema Estudo Projeto 2">
+                </div>
+            </div>
+        </div>
+        <div id="projeto3" class="tab-content"><h1 class="page-title">Edifício Comercial InovaCenter</h1> <p class="page-subtitle">Design inovador para um ambiente de trabalho dinâmico e colaborativo.</p> </div>
+        <div id="projeto4" class="tab-content"><h1 class="page-title">Interiores Corporativos TechHub</h1> <p class="page-subtitle">Soluções de design de interiores que refletem a identidade da marca.</p> </div>
+        <div id="projeto5" class="tab-content"><h1 class="page-title">Paisagismo Residencial Oásis</h1> <p class="page-subtitle">Criação de espaços externos que convidam à contemplação e ao lazer.</p></div>
+
+        <!-- Author Content -->
+        <div id="autor" class="tab-content author-section">
+            <h1 class="page-title">Sobre o Autor</h1>
+            <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
+                <img src="https://placehold.co/200x200/007AFF/FFFFFF?text=Autor&font=inter" alt="Foto do Autor" class="author-image flex-shrink-0 mx-auto md:mx-0">
+                <div class="text-center md:text-left">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-1">Nome do Estudante</h3>
+                    <p class="text-gray-600 mb-4 text-md">Estudante de Arquitetura e Urbanismo</p>
+                    <div class="prose">
+                        <p>Uma breve biografia sobre o estudante, suas paixões na arquitetura, áreas de interesse, filosofia de design e aspirações futuras. Este espaço é ideal para compartilhar sua jornada e visão como futuro arquiteto e urbanista, destacando projetos e experiências relevantes.</p>
+                        <p><strong>Habilidades Chave:</strong> Desenho Técnico Avançado, Modelagem 3D (SketchUp, Revit, Rhino), Renderização Fotorealista (V-Ray, Lumion, Enscape), Pós-produção (Photoshop, Illustrator), Concepção Criativa de Projetos, Planejamento Urbano Sustentável.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-10 pt-8 border-t border-gray-200 contact-info">
+                <h4 class="text-xl font-semibold text-gray-700 mb-4">Contato e Redes Sociais</h4>
+                <p><i class="fas fa-envelope fa-fw mr-2 text-gray-400"></i>email.do.estudante@example.com</p>
+                <p><i class="fas fa-phone fa-fw mr-2 text-gray-400"></i>(XX) XXXXX-XXXX</p>
+                <div class="mt-5 space-x-4 social-links">
+                    <a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                    <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+                    <a href="#"><i class="fab fa-behance-square"></i> Behance</a>
+                </div>
+            </div>
+        </div>
+        
+    </main>
+    <footer id="mainFooter">
+        <p>&copy; <span id="currentYear"></span> Nome do Estudante. Todos os direitos reservados.</p>
+        <!-- Links de redes sociais podem ser adicionados aqui se desejado, de forma minimalista -->
+        <div class="footer-social-links">
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Behance"><i class="fab fa-behance-square"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Selectors
+        const headerLogo = document.querySelector('.header-logo'); 
+        const internalNavLinks = document.querySelectorAll('.main-nav-link-internal'); 
+        const tabContents = document.querySelectorAll('#mainContent .tab-content');
+        
+        function setActiveTab(targetId) {
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+                if (content.id === targetId) {
+                    content.classList.add('active');
+                }
+            });
+            
+            const activeContentElement = document.getElementById(targetId);
+            if (activeContentElement && targetId.startsWith('projeto')) {
+                resetProjectSections(targetId);
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' }); 
+        }
+
+        if (headerLogo) {
+            headerLogo.addEventListener('click', (e) => {
+                e.preventDefault();
+                setActiveTab(headerLogo.dataset.tabTarget);
+            });
+        }
+
+        internalNavLinks.forEach(link => {
+             link.addEventListener('click', (e) => {
+                e.preventDefault();
+                setActiveTab(link.dataset.tabTarget);
+            });
+        });
+        
+        function resetProjectSections(projectId) {
+            const projectContainer = document.getElementById(projectId);
+            if (!projectContainer) return;
+
+            const sectionTabs = projectContainer.querySelectorAll('.project-section-tab');
+            const sectionContents = projectContainer.querySelectorAll('.project-section-content');
+
+            if (sectionTabs.length === 0 || sectionContents.length === 0) return;
+
+            sectionTabs.forEach((tab, index) => {
+                tab.classList.remove('active-section-tab');
+                if (index === 0) tab.classList.add('active-section-tab');
+            });
+            sectionContents.forEach((content, index) => {
+                content.classList.remove('active');
+                if (index === 0) content.classList.add('active');
+            });
+        }
+
+        function initializeProjectSectionTabs() {
+            const allProjectContainers = document.querySelectorAll('.tab-content[id^="projeto"]');
+            allProjectContainers.forEach(projectContainer => {
+                const sectionTabs = projectContainer.querySelectorAll(`.project-section-tab`);
+                const sectionContents = projectContainer.querySelectorAll(`.project-section-content`);
+                
+                if(sectionTabs.length === 0) return;
+
+                sectionTabs.forEach(tab => {
+                    tab.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const targetId = tab.dataset.sectionTarget;
+                        sectionTabs.forEach(innerTab => innerTab.classList.remove('active-section-tab'));
+                        tab.classList.add('active-section-tab');
+                        sectionContents.forEach(content => {
+                            content.classList.remove('active');
+                            if (content.id === targetId) {
+                                content.classList.add('active');
+                            }
+                        });
+                    });
+                });
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            setActiveTab('homePage'); 
+            initializeProjectSectionTabs();
+        });
+
+    </script>
+</body>
+</html>

@@ -104,7 +104,7 @@
 
     <!-- Header -->
     <header class="bg-blue-900 sticky top-0 z-40 shadow-lg">
-        <nav class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#home" class="text-xl font-bold text-white nav-trigger">Audrik Gonçalves</a>
             <div class="hidden md:flex items-center space-x-8">
                 <a href="#home" class="nav-link active nav-trigger">Sobre</a>
@@ -113,7 +113,7 @@
                 <a href="#blog" class="nav-link nav-trigger">Diário de Bordo</a>
             </div>
             <button id="mobile-menu-button" class="md:hidden text-gray-300 focus:outline-none"><i class="fas fa-bars"></i></button>
-        </nav>
+        </div>
         <div id="mobile-menu" class="hidden md:hidden bg-blue-900 px-6 pb-4">
             <a href="#home" class="block py-2 text-gray-300 hover:text-white nav-trigger">Sobre</a>
             <a href="#architecture" class="block py-2 text-gray-300 hover:text-white nav-trigger">Arquitetura</a>
@@ -122,7 +122,7 @@
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto p-6 sm:p-8 md:p-12">
+    <main class="px-6 sm:px-8 md:px-12 py-12">
         <!-- Home/Sobre Section -->
         <section id="home" class="page-section active">
             <div class="text-center mb-16">
@@ -158,7 +158,7 @@
                 <button class="project-tab" data-target="p1-viz">Visualização</button>
                 <button class="project-tab" data-target="p1-details">Detalhes</button>
             </div>
-            <div class="mt-8">
+            <div class="mt-8 max-w-5xl mx-auto">
                 <div id="p1-concept" class="project-tab-content active"><h3 class="text-2xl font-bold mb-4">Conceito e Esboços</h3><p class="text-gray-700 leading-relaxed mb-6">O desafio era criar uma residência que se dissolvesse na paisagem. A ideia principal foi usar a topografia para semi-enterrar a casa, minimizando seu impacto visual e aproveitando a inércia térmica do solo.</p><div class="bg-gray-100 rounded-lg p-4 h-64 flex items-center justify-center text-gray-500"><span>[Espaço para GIF do Processo: Esboço > Render]</span></div></div>
                 <div id="p1-dev" class="project-tab-content"><h3 class="text-2xl font-bold mb-4">Plantas e Cortes</h3><div class="bg-gray-100 rounded-lg p-4 h-64 flex items-center justify-center text-gray-500"><span>[Espaço para Plantas e Cortes Técnicos]</span></div></div>
                 <div id="p1-viz" class="project-tab-content"><h3 class="text-2xl font-bold mb-4">Galeria, Vídeo e Modelo 3D</h3><div class="space-y-8"><h4 class="text-xl font-semibold text-gray-800">Vídeo do Projeto (Fly-through)</h4><div class="embed-wrapper"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><h4 class="text-xl font-semibold text-gray-800">Modelo 3D Interativo</h4><div class="embed-wrapper"><iframe title="Residência Veredas" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/7ce870af711846dbb113102e900c812a/embed?autostart=0&ui_theme=dark&ui_infos=0&ui_controls=1&ui_watermark=0"></iframe></div><h4 class="text-xl font-semibold text-gray-800">Galeria de Imagens</h4><div class="grid grid-cols-1 md:grid-cols-3 gap-4 project-gallery"><a href="https://placehold.co/1200x800/1E40AF/FFFFFF?text=Render+Externo" class="gallery-item"><img src="https://placehold.co/600x400/1E40AF/FFFFFF?text=Render+Externo" alt="[Imagem de Render Externo]" class="rounded-lg shadow-md w-full h-full object-cover"></a></div></div></div>
@@ -175,7 +175,7 @@
                 <button class="project-tab" data-target="p2-viz">Visualização</button>
                 <button class="project-tab" data-target="p2-details">Detalhes</button>
             </div>
-            <div class="mt-8">
+            <div class="mt-8 max-w-5xl mx-auto">
                 <div id="p2-concept" class="project-tab-content active"><h3 class="text-2xl font-bold mb-4">Conceito e Esboços</h3><p class="text-gray-700 leading-relaxed mb-6">A proposta explora estruturas modulares e de baixo impacto para criar um novo ponto de encontro para a comunidade, promovendo a arte e a cultura em um espaço arquitetônico inovador e flexível.</p><div class="bg-gray-100 rounded-lg p-4 h-64 flex items-center justify-center text-gray-500"><span>[Espaço para GIF do Processo: Módulos > Conjunto]</span></div></div>
                 <div id="p2-dev" class="project-tab-content"><h3 class="text-2xl font-bold mb-4">Diagramas Funcionais</h3><div class="bg-gray-100 rounded-lg p-4 h-64 flex items-center justify-center text-gray-500"><span>[Espaço para Diagramas de Fluxo e Setorização]</span></div></div>
                 <div id="p2-viz" class="project-tab-content"><h3 class="text-2xl font-bold mb-4">Galeria, Vídeo e Modelo 3D</h3><div class="space-y-8"><h4 class="text-xl font-semibold text-gray-800">Vídeo do Projeto (Fly-through)</h4><div class="embed-wrapper"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><h4 class="text-xl font-semibold text-gray-800">Modelo 3D Interativo</h4><div class="embed-wrapper"><iframe title="Centro Cultural" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/07c146209586411589932a3933a04250/embed?autostart=0&ui_theme=dark&ui_infos=0&ui_controls=1&ui_watermark=0"></iframe></div><h4 class="text-xl font-semibold text-gray-800">Galeria de Imagens</h4><div class="grid grid-cols-1 md:grid-cols-3 gap-4 project-gallery"><a href="https://placehold.co/1200x800/1E3A8A/FFFFFF?text=Vista+Aérea" class="gallery-item"><img src="https://placehold.co/600x400/1E3A8A/FFFFFF?text=Vista+Aérea" alt="[Imagem de Vista Aérea]" class="rounded-lg shadow-md w-full h-full object-cover"></a></div></div></div>
@@ -192,7 +192,7 @@
                 <button class="project-tab" data-target="p3-viz">Visualização</button>
                 <button class="project-tab" data-target="p3-details">Detalhes</button>
             </div>
-            <div class="mt-8">
+            <div class="mt-8 max-w-5xl mx-auto">
                 <div id="p3-concept" class="project-tab-content active"><h3 class="text-2xl font-bold mb-4">Diretrizes e Masterplan</h3><p class="text-gray-700 leading-relaxed mb-6">O plano prioriza a mobilidade ativa, espaços verdes e a preservação do patrimônio histórico local, criando um novo polo de convivência e desenvolvimento econômico para a cidade.</p><div class="bg-gray-100 rounded-lg p-4 h-64 flex items-center justify-center text-gray-500"><span>[Espaço para GIF: Análise > Masterplan]</span></div></div>
                 <div id="p3-dev" class="project-tab-content"><h3 class="text-2xl font-bold mb-4">Análise de Zoneamento e Fluxos</h3><div class="bg-gray-100 rounded-lg p-4 h-64 flex items-center justify-center text-gray-500"><span>[Espaço para Mapas de Análise]</span></div></div>
                 <div id="p3-viz" class="project-tab-content"><h3 class="text-2xl font-bold mb-4">Galeria, Vídeo e Modelo 3D</h3><div class="space-y-8"><h4 class="text-xl font-semibold text-gray-800">Vídeo do Projeto (Fly-through)</h4><div class="embed-wrapper"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><h4 class="text-xl font-semibold text-gray-800">Modelo 3D Interativo</h4><div class="embed-wrapper"><iframe title="Revitalização Urbana" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/5a1b6989d5a94d8b9f1943014e08b9f1/embed?autostart=0&ui_theme=dark&ui_infos=0&ui_controls=1&ui_watermark=0"></iframe></div><h4 class="text-xl font-semibold text-gray-800">Galeria de Imagens</h4><div class="grid grid-cols-1 md:grid-cols-3 gap-4 project-gallery"><a href="https://placehold.co/1200x800/064E3B/FFFFFF?text=Masterplan" class="gallery-item"><img src="https://placehold.co/600x400/064E3B/FFFFFF?text=Masterplan" alt="[Imagem de Masterplan]" class="rounded-lg shadow-md w-full h-full object-cover"></a></div></div></div>
@@ -202,20 +202,24 @@
         
         <!-- Engineering Section -->
         <section id="engineering" class="page-section">
-            <div class="text-center"><h1 class="text-4xl md:text-5xl font-bold text-gray-900">Competências em Engenharia Civil</h1><p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">Minha visão integrada da construção, unindo a precisão da engenharia com a criatividade da arquitetura para otimizar processos e resultados.</p></div>
-            <div class="mt-12 space-y-12">
-                <div class="bg-white p-8 rounded-lg shadow-md"><h3 class="text-2xl font-bold text-gray-900 mb-4 border-b pb-3 border-blue-200">Modelagem BIM</h3><div class="grid md:grid-cols-2 gap-8 items-center"><div class="prose max-w-none text-gray-600"><p>Utilizo o Revit para criar modelos 3D inteligentes, focando na detecção de interferências e na extração de quantitativos.</p><h4 class="font-semibold text-gray-800">Aplicação Prática:</h4><p>No projeto da Residência Veredas, a modelagem permitiu a compatibilização das instalações com a estrutura, identificando conflitos que seriam onerosos na fase de obra.</p><a href="#project1" class="text-blue-600 hover:underline font-semibold nav-trigger">Ver aplicação no projeto &rarr;</a></div><div class="bg-gray-100 rounded-lg p-4 h-48 flex items-center justify-center text-gray-500"><span>[Espaço para Diagrama de Fluxo BIM]</span></div></div></div>
-                <div class="bg-white p-8 rounded-lg shadow-md"><h3 class="text-2xl font-bold text-gray-900 mb-4 border-b pb-3 border-blue-200">Lean Construction</h3><div class="grid md:grid-cols-2 gap-8 items-center"><div class="prose max-w-none text-gray-600"><p>Como membro da Liga Acadêmica de Lean, aplico os princípios da construção enxuta para identificar e eliminar desperdícios.</p><h4 class="font-semibold text-gray-800">Aplicação Prática:</h4><p>Desenvolvimento de um plano de ataque para um canteiro de obras hipotético, utilizando planejamento colaborativo para reduzir o tempo de ciclo em 15%.</p></div><div class="bg-gray-100 rounded-lg p-4 h-48 flex items-center justify-center text-gray-500"><span>[Espaço para Diagrama de Last Planner]</span></div></div></div>
-                <div class="bg-white p-8 rounded-lg shadow-md"><h3 class="text-2xl font-bold text-gray-900 mb-4 border-b pb-3 border-blue-200">Metodologia AWP</h3><div class="grid md:grid-cols-2 gap-8 items-center"><div class="prose max-w-none text-gray-600"><p>Estudo e aplico os conceitos de Advanced Work Packaging para estruturar o planejamento com foco na execução, quebrando o projeto em pacotes de trabalho gerenciáveis.</p><h4 class="font-semibold text-gray-800">Aplicação Prática:</h4><p>Estruturação de um plano de trabalho para o Plano de Revitalização Urbana, definindo o "Path of Construction" para otimizar a sequência de intervenções.</p><a href="#project3" class="text-blue-600 hover:underline font-semibold nav-trigger">Ver aplicação no projeto &rarr;</a></div><div class="bg-gray-100 rounded-lg p-4 h-48 flex items-center justify-center text-gray-500"><span>[Espaço para Diagrama de Fluxo AWP]</span></div></div></div>
+            <div class="max-w-5xl mx-auto">
+                <div class="text-center"><h1 class="text-4xl md:text-5xl font-bold text-gray-900">Competências em Engenharia Civil</h1><p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">Minha visão integrada da construção, unindo a precisão da engenharia com a criatividade da arquitetura para otimizar processos e resultados.</p></div>
+                <div class="mt-12 space-y-12">
+                    <div class="bg-white p-8 rounded-lg shadow-md"><h3 class="text-2xl font-bold text-gray-900 mb-4 border-b pb-3 border-blue-200">Modelagem BIM</h3><div class="grid md:grid-cols-2 gap-8 items-center"><div class="prose max-w-none text-gray-600"><p>Utilizo o Revit para criar modelos 3D inteligentes, focando na detecção de interferências e na extração de quantitativos.</p><h4 class="font-semibold text-gray-800">Aplicação Prática:</h4><p>No projeto da Residência Veredas, a modelagem permitiu a compatibilização das instalações com a estrutura, identificando conflitos que seriam onerosos na fase de obra.</p><a href="#project1" class="text-blue-600 hover:underline font-semibold nav-trigger">Ver aplicação no projeto &rarr;</a></div><div class="bg-gray-100 rounded-lg p-4 h-48 flex items-center justify-center text-gray-500"><span>[Espaço para Diagrama de Fluxo BIM]</span></div></div></div>
+                    <div class="bg-white p-8 rounded-lg shadow-md"><h3 class="text-2xl font-bold text-gray-900 mb-4 border-b pb-3 border-blue-200">Lean Construction</h3><div class="grid md:grid-cols-2 gap-8 items-center"><div class="prose max-w-none text-gray-600"><p>Como membro da Liga Acadêmica de Lean, aplico os princípios da construção enxuta para identificar e eliminar desperdícios.</p><h4 class="font-semibold text-gray-800">Aplicação Prática:</h4><p>Desenvolvimento de um plano de ataque para um canteiro de obras hipotético, utilizando planejamento colaborativo para reduzir o tempo de ciclo em 15%.</p></div><div class="bg-gray-100 rounded-lg p-4 h-48 flex items-center justify-center text-gray-500"><span>[Espaço para Diagrama de Last Planner]</span></div></div></div>
+                    <div class="bg-white p-8 rounded-lg shadow-md"><h3 class="text-2xl font-bold text-gray-900 mb-4 border-b pb-3 border-blue-200">Metodologia AWP</h3><div class="grid md:grid-cols-2 gap-8 items-center"><div class="prose max-w-none text-gray-600"><p>Estudo e aplico os conceitos de Advanced Work Packaging para estruturar o planejamento com foco na execução, quebrando o projeto em pacotes de trabalho gerenciáveis.</p><h4 class="font-semibold text-gray-800">Aplicação Prática:</h4><p>Estruturação de um plano de trabalho para o Plano de Revitalização Urbana, definindo o "Path of Construction" para otimizar a sequência de intervenções.</p><a href="#project3" class="text-blue-600 hover:underline font-semibold nav-trigger">Ver aplicação no projeto &rarr;</a></div><div class="bg-gray-100 rounded-lg p-4 h-48 flex items-center justify-center text-gray-500"><span>[Espaço para Diagrama de Fluxo AWP]</span></div></div></div>
+                </div>
             </div>
         </section>
 
         <!-- Blog Section -->
         <section id="blog" class="page-section">
-            <div class="text-center"><h1 class="text-4xl md:text-5xl font-bold text-gray-900">Diário de Bordo</h1><p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">Reflexões, estudos e aprendizados sobre o universo da arquitetura e da engenharia.</p></div>
-            <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <a href="#blog-post-1" class="blog-card nav-trigger"><div class="p-6"><p class="text-sm text-gray-500">25 de Julho, 2025</p><h3 class="text-xl font-bold text-gray-900 mt-2">3 Desafios da Compatibilização de Projetos em BIM</h3><p class="mt-2 text-gray-600">Uma análise sobre os principais obstáculos e soluções na integração de disciplinas em um modelo central.</p></div></a>
-                <a href="#blog-post-2" class="blog-card nav-trigger"><div class="p-6"><p class="text-sm text-gray-500">15 de Julho, 2025</p><h3 class="text-xl font-bold text-gray-900 mt-2">Visita à Obra Y: Lições Aprendidas</h3><p class="mt-2 text-gray-600">Observações práticas sobre a aplicação de metodologias ágeis no canteiro de obras.</p></div></a>
+            <div class="max-w-5xl mx-auto">
+                <div class="text-center"><h1 class="text-4xl md:text-5xl font-bold text-gray-900">Diário de Bordo</h1><p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">Reflexões, estudos e aprendizados sobre o universo da arquitetura e da engenharia.</p></div>
+                <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <a href="#blog-post-1" class="blog-card nav-trigger"><div class="p-6"><p class="text-sm text-gray-500">25 de Julho, 2025</p><h3 class="text-xl font-bold text-gray-900 mt-2">3 Desafios da Compatibilização de Projetos em BIM</h3><p class="mt-2 text-gray-600">Uma análise sobre os principais obstáculos e soluções na integração de disciplinas em um modelo central.</p></div></a>
+                    <a href="#blog-post-2" class="blog-card nav-trigger"><div class="p-6"><p class="text-sm text-gray-500">15 de Julho, 2025</p><h3 class="text-xl font-bold text-gray-900 mt-2">Visita à Obra Y: Lições Aprendidas</h3><p class="mt-2 text-gray-600">Observações práticas sobre a aplicação de metodologias ágeis no canteiro de obras.</p></div></a>
+                </div>
             </div>
         </section>
         
@@ -284,7 +288,7 @@
                     const target = +counter.dataset.count;
                     counter.innerText = '0'; // Reset before starting
                     let current = 0;
-                    const increment = target / 100;
+                    const increment = target / 200; 
                     const updateCount = () => {
                         if (current < target) {
                             current += increment;

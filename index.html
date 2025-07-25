@@ -1,1184 +1,384 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfólio de Arquitetura e Engenharia Civil</title>
+    <title>Audrik Gonçalves - Portfólio de Arquitetura</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #ffffff;
-            color: #1a202c;
-            overflow-x: hidden;
-            padding-top: 70px; /* Space for fixed header */
+            background-color: #F9FAFB; /* Fundo cinza claro */
         }
-
-        /* Header Navigation */
-        #mainHeader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background-color: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid #f0f0f0;
-            z-index: 1000;
-            padding: 0 5%;
-            height: 70px;
-            display: flex;
-            align-items: center;
-        }
-
-        .header-content {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between; 
-            align-items: center;
-        }
-        
-        .header-logo {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #007aff;
-            text-decoration: none;
-            transition: opacity 0.2s ease;
-        }
-        .header-logo:hover {
-            opacity: 0.8;
-        }
-
-        .main-nav { 
-            /* Links removidos, pode ser usado para outros elementos se necessário */
-        }
-
-        #mobileMenuToggle {
-            display: none; 
-            background: none;
-            border: none;
-            color: #2c2c2c;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* Main Content Area */
-        #mainContent {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            position: relative; /* For positioning back to home button */
-        }
-
-        /* General Tab Content Styling */
-        .tab-content { display: none; }
-        .tab-content.active { display: block; animation: fadeIn 0.5s ease-out; }
-        .project-section-content, .topic-section-content { display: none; } 
-        .project-section-content.active, .topic-section-content.active { display: block; animation: fadeInInner 0.4s ease-out; } 
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeInInner {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* Section Titles */
-        .page-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 0.5em;
-            color: #1a202c;
-            line-height: 1.2;
-        }
-        .page-subtitle {
-            font-size: 1.1rem;
-            color: #718096;
-            margin-bottom: 2.5em;
-            font-weight: 400;
-        }
-
-        /* Home Page Specifics */
-        #homePage .home-intro {
-            text-align: center;
-            margin-bottom: 3em;
-        }
-        #homePage .home-intro .page-title {
-             font-size: 3rem;
-        }
-         #homePage .home-intro .page-subtitle {
-             font-size: 1.2rem;
-             max-width: 600px;
-             margin-left: auto;
-             margin-right: auto;
-        }
-        
-        .home-section-image-title {
-            display: flex;
-            align-items: center;
-            justify-content: space-between; 
+        .nav-link {
             position: relative;
-            min-height: 120px; 
-            padding: 20px 25px;
-            border-radius: 8px;
-            overflow: hidden;
-            background-color: #333; 
-            color: white;
-            text-decoration: none;
-            margin-top: 2.5em;
-            margin-bottom: 1em;
-            cursor: pointer;
-            transition: box-shadow 0.3s ease, transform 0.3s ease; 
+            transition: color 0.3s ease;
+            color: #D1D5DB; /* Cinza-300 para texto do header */
         }
-        .home-section-image-title:hover {
-            box-shadow: 0 6px 20px rgba(0,0,0,0.12); 
-            transform: translateY(-2px); 
+        .nav-link.active, .nav-link:hover {
+            color: #FFFFFF; /* Branco para hover/ativo */
         }
-
-        .home-section-image-title-bg {
+        .nav-link.active::after {
+            content: '';
             position: absolute;
-            top: 0;
+            bottom: -4px;
             left: 0;
             width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            filter: brightness(0.5);
-            z-index: 1;
-            transition: transform 0.4s ease, filter 0.3s ease;
+            height: 2px;
+            background-color: #60A5FA; /* Azul-400 para destaque */
         }
-        .home-section-image-title:hover .home-section-image-title-bg {
-            transform: scale(1.03);
-            filter: brightness(0.45);
+        .page-section {
+            display: none;
         }
-
-        .home-section-image-title h2 {
-            position: relative;
-            z-index: 2;
-            font-size: 1.8rem;
-            font-weight: 700;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+        .page-section.active {
+            display: block;
         }
-        .home-section-image-title .toggle-icon {
-            position: relative;
-            z-index: 2;
-            font-size: 1.2rem;
-            transition: transform 0.3s ease;
-        }
-        .home-section-image-title.collapsed .toggle-icon {
-            transform: rotate(-90deg);
-        }
-
-
-        #homePage .home-section-title:first-of-type { 
-            margin-top: 0;
-            border-bottom: 1px solid #e2e8f0; 
-            padding-bottom: 0.5em;
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #2d3748;
-            margin-bottom: 1em;
-        }
-
-
-        .author-home-link-block {
-            display: flex; 
-            align-items: center; 
-            gap: 20px; 
-            background-color: #f9fafb;
-            padding: 20px;
+        .btn {
+            display: inline-block;
+            padding: 10px 24px;
             border-radius: 8px;
-            margin-bottom: 0; 
-            text-decoration: none;
-            transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-align: center;
         }
-        .author-home-link-block:hover {
-            background-color: #f0f4f8;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        .btn-primary {
+            background-color: #1E40AF; /* Azul-800 */
+            color: white;
         }
-        .author-home-link-block img.author-placeholder-img {
-            width: 80px; 
-            height: 80px;
-            border-radius: 50%; 
-            object-fit: cover;
-            flex-shrink: 0; 
-            border: 2px solid #007aff30; 
+        .btn-primary:hover {
+            background-color: #1D4ED8; /* Azul-700 */
         }
-        .author-home-link-block .author-text-content h3 {
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: #1a202c;
-            margin-bottom: 0.25em;
-        }
-        .author-home-link-block .author-text-content p {
-            font-size: 1rem;
-            color: #718096;
-            font-weight: 400;
-            line-height: 1.6;
-        }
-        
-        .collapsible-list { 
+        .project-card {
+            background-color: white;
+            border-radius: 0.75rem;
             overflow: hidden;
-            transition: max-height 0.5s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0.5s cubic-bezier(0.25, 0.1, 0.25, 1); 
-        }
-        .collapsible-list.hidden {
-             max-height: 0 !important; 
-             opacity: 0 !important;
-             margin-top: 0 !important; 
-        }
-         .collapsible-list.visible {
-            max-height: 2000px; 
-            opacity: 1;
-            margin-top: 1em; 
-        }
-
-
-        .project-list-item, .engineering-topic-item { 
-            display: block; 
-            position: relative;
-            overflow: hidden;
-            border-radius: 8px;
-            margin-bottom: 1.5em; 
-            text-decoration: none;
-            min-height: 180px; 
-            background-color: #333; 
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .project-list-item:hover, .engineering-topic-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
         }
-        .project-list-item:last-child, .engineering-topic-item:last-child {
-            margin-bottom: 0;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        .project-list-item-bg-image, .engineering-topic-item-bg-image {
+        .page-section.active {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        #image-modal {
+            transition: opacity 0.3s ease-in-out;
+        }
+        .project-tab {
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            color: #4B5563;
+            transition: all 0.2s ease-in-out;
+        }
+        .project-tab:hover {
+            background-color: #F3F4F6;
+            color: #111827;
+        }
+        .project-tab.active {
+            background-color: #1E40AF;
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .project-tab-content {
+            display: none;
+        }
+        .project-tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s;
+        }
+        .sketchfab-embed-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+        .sketchfab-embed-wrapper iframe {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-size: cover;
-            background-position: center;
-            filter: brightness(0.55); 
-            transition: transform 0.4s ease, filter 0.4s ease;
         }
-        .project-list-item:hover .project-list-item-bg-image,
-        .engineering-topic-item:hover .engineering-topic-item-bg-image {
-            transform: scale(1.05);
-            filter: brightness(0.45);
-        }
-        
-        .engineering-topic-item.no-bg {
-            background-color: #f9fafb;
-            min-height: auto; 
-            border: 1px solid #e2e8f0;
-        }
-        .engineering-topic-item.no-bg:hover {
-             background-color: #f0f4f8;
-        }
-
-
-        .project-list-item-content, .engineering-topic-item-content {
-            position: relative; 
-            z-index: 2;
-            padding: 20px 25px; 
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center; 
-        }
-        
-        .project-list-item .project-list-item-content,
-        .engineering-topic-item:not(.no-bg) .engineering-topic-item-content {
-             justify-content: flex-end; 
-             color: white;
-        }
-         
-        .engineering-topic-item.no-bg .engineering-topic-item-content {
-            color: #1a202c;
-        }
-
-        .project-list-item-title, .engineering-topic-item-title {
-            font-size: 1.6rem; 
-            font-weight: 700;
-            margin-bottom: 0.25em;
-        }
-        .project-list-item:not(.no-bg) .project-list-item-title,
-        .engineering-topic-item:not(.no-bg) .engineering-topic-item-title {
-            color: #ffffff;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
-        }
-        .engineering-topic-item.no-bg .engineering-topic-item-title {
-             color: #007aff; 
-        }
-
-
-        .project-list-item-subtitle, .engineering-topic-item-subtitle {
-            font-size: 0.95rem; 
-            font-weight: 400;
-            line-height: 1.6;
-        }
-        .project-list-item:not(.no-bg) .project-list-item-subtitle,
-        .engineering-topic-item:not(.no-bg) .engineering-topic-item-subtitle {
-            color: #e2e8f0; 
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-        }
-         .engineering-topic-item.no-bg .engineering-topic-item-subtitle {
-            color: #4a5568;
-        }
-        
-        .engineering-placeholder {
-            background-color: #f9fafb;
-            padding: 30px 20px;
-            border-radius: 8px;
-            text-align: center;
-            color: #718096;
-            font-style: italic;
-            border: 1px dashed #e2e8f0;
-            margin-top: 1em; 
-        }
-
-
-        /* Project Section Tabs / Topic Section Tabs */
-        .section-nav { 
-            margin-bottom: 2em;
-            border-bottom: 1px solid #e2e8f0;
-            padding-bottom: 0.5em;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 5px;
-        }
-        .section-tab { 
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: #4a5568;
-            background-color: transparent;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .section-tab:hover {
-            background-color: #f0f4f8; 
-            color: #007aff;
-            transform: translateY(-1px);
-        }
-        .section-tab.active-section-tab {
-            background-color: #e0eaff; 
-            color: #0056b3; 
-            font-weight: 600;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-
-        /* Content Styling */
-        .content-section { 
-            padding-top: 1em;
-        }
-        .content-section h3 { 
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 0.8em;
-            color: #2d3748;
-        }
-        .prose {
-            font-size: 1rem;
-            line-height: 1.8;
-            color: #2d3748;
-        }
-        .prose p { margin-bottom: 1.5em; }
-        .prose strong { font-weight: 600; color: #1a202c; }
-        .prose img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            margin-top: 1em;
-            margin-bottom: 1.5em;
-            border: 1px solid #e2e8f0;
-        }
-        .prose .placeholder-3d, .prose .sketchfab-embed-wrapper { 
-            background-color: #f7fafc;
-            aspect-ratio: 16 / 9;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #a0aec0;
-            border: 1px solid #e2e8f0;
-            margin-top: 1em;
-            overflow: hidden; 
-        }
-         .prose .sketchfab-embed-wrapper iframe {
-            width: 100%;
-            height: 100%; 
-            min-height: 450px; 
-        }
-
-
-        /* Author Section Specifics */
-        .author-section .author-image {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 1.5em;
-            border: 3px solid #007aff;
-        }
-        .author-section .contact-info p { margin-bottom: 0.5em; }
-        .author-section .social-links a { color: #007aff; text-decoration: none; font-weight: 500; transition: color 0.2s ease; }
-        .author-section .social-links a:hover { color: #0056b3; text-decoration: underline; }
-        .author-section .social-links i { margin-right: 0.5em; }
-
-        /* Footer */
-        #mainFooter {
-            text-align: center;
-            padding: 30px 20px; 
-            margin-top: 50px; 
-            font-size: 0.85rem; 
-            color: #718096; 
-            border-top: 1px solid #f0f0f0; 
-        }
-        .footer-social-links {
-            margin-top: 10px;
-        }
-        .footer-social-links a {
-            color: #718096;
-            margin: 0 8px;
-            font-size: 1.1rem; 
-            transition: color 0.2s ease, transform 0.2s ease;
-        }
-        .footer-social-links a:hover {
-            color: #007aff;
-            transform: scale(1.1);
-        }
-
-        /* Back to Top Button */
-        #backToTopBtn {
-            display: none; 
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            z-index: 999;
-            border: none;
-            outline: none;
-            background-color: #007aff;
-            color: white;
-            cursor: pointer;
-            padding: 12px 15px; 
-            border-radius: 50%; 
-            font-size: 1.1rem; 
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-            transition: background-color 0.2s ease, opacity 0.3s ease, transform 0.3s ease;
-        }
-        #backToTopBtn:hover {
-            background-color: #0056b3;
-            transform: translateY(-2px);
-        }
-        #backToTopBtn.show {
-            display: block;
-            animation: fadeInToTop 0.3s ease-out;
-        }
-        /* Back to Home Button */
-        #backToHomeBtn {
-            display: none; 
-            position: fixed; 
-            top: 90px; 
-            right: 25px;
-            z-index: 998; 
-            border: none;
-            outline: none;
-            background-color: #6b7280; 
-            color: white;
-            cursor: pointer;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            transition: background-color 0.2s ease, opacity 0.3s ease, transform 0.3s ease;
-        }
-        #backToHomeBtn:hover {
-            background-color: #4b5563;
-            transform: translateY(-1px);
-        }
-        #backToHomeBtn.show {
-            display: flex; 
-            align-items: center;
-            animation: fadeInToTop 0.3s ease-out;
-        }
-         #backToHomeBtn i {
-            margin-right: 6px;
-        }
-
-
-        @keyframes fadeInToTop {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Responsive Adjustments */
-        @media (max-width: 768px) {
-            body { padding-top: 60px; }
-            #mainHeader { height: 60px; padding: 0 15px; }
-            .header-logo { font-size: 1.1rem; }
-            
-            .page-title { font-size: 2rem; }
-            #homePage .home-intro .page-title { font-size: 2.2rem; }
-            
-            .home-section-image-title h2 { font-size: 1.5rem; }
-            .home-section-title { font-size: 1.5rem; } 
-
-            .project-list-item-title, .engineering-topic-item-title { font-size: 1.3rem; }
-            .author-home-link-block { flex-direction: column; align-items: flex-start; }
-            .author-home-link-block img.author-placeholder-img { margin-bottom: 15px; }
-            .author-home-link-block .author-text-content h3 { font-size: 1.5rem; }
-
-
-            #mainContent { padding: 25px 15px; }
-            .section-nav { flex-direction: column; align-items: flex-start;} 
-            .section-tab { width: 100%; text-align: left; margin-bottom: 5px;} 
-
-            .author-section .author-image { width: 100px; height: 100px; }
-            #backToTopBtn { bottom: 20px; right: 20px; padding: 10px 13px; font-size: 1rem;}
-            #backToHomeBtn { top: 75px; right: 15px; padding: 6px 10px; font-size: 0.8rem;}
-        }
-
     </style>
 </head>
-<body>
+<body class="text-gray-800">
 
-    <header id="mainHeader">
-        <div class="header-content">
-            <a href="#" data-tab-target="homePage" class="header-logo main-nav-link">Portfólio</a>
-            <nav class="main-nav" id="mainNavLinks">
-                <!-- Links removidos -->
-            </nav>
-            <button id="mobileMenuToggle" aria-label="Abrir menu" style="display: none;">
+    <!-- Header -->
+    <header class="bg-blue-900 sticky top-0 z-40 shadow-lg">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#home" class="text-xl font-bold text-white nav-trigger">Audrik Gonçalves</a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#home" class="nav-link active nav-trigger">Sobre</a>
+                <a href="#architecture" class="nav-link nav-trigger">Arquitetura</a>
+                <a href="#engineering" class="nav-link nav-trigger">Engenharia</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-gray-300 focus:outline-none">
                 <i class="fas fa-bars"></i>
             </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-blue-900 px-6 pb-4">
+            <a href="#home" class="block py-2 text-gray-300 hover:text-white nav-trigger">Sobre</a>
+            <a href="#architecture" class="block py-2 text-gray-300 hover:text-white nav-trigger">Arquitetura</a>
+            <a href="#engineering" class="block py-2 text-gray-300 hover:text-white nav-trigger">Engenharia</a>
         </div>
     </header>
 
-    <main id="mainContent">
-        <!-- Home Page Content -->
-        <div id="homePage" class="tab-content active">
-            <div class="home-intro">
-                <h1 class="page-title">Arquitetura e Engenharia Civil</h1>
-                <p class="page-subtitle">Explorando a intersecção entre forma, função, técnica e significado. Bem-vindo ao meu portfólio.</p>
-            </div>
-
-            <h2 class="home-section-title">Sobre o Autor</h2>
-            <a href="#" data-tab-target="autor" class="author-home-link-block main-nav-link-internal">
-                <img src="https://placehold.co/100x100/007AFF/FFFFFF?text=Autor&font=inter" alt="Foto do Autor" class="author-placeholder-img">
-                <div class="author-text-content">
-                    <h3>Nome do Estudante</h3>
-                    <p>Conheça mais sobre minha jornada, filosofia de design e habilidades como futuro Arquiteto e Engenheiro Civil.</p>
+    <main class="container mx-auto p-6 md:p-12">
+        <!-- Home Section -->
+        <section id="home" class="page-section active">
+            <div class="grid md:grid-cols-3 gap-12 items-center">
+                <div class="md:col-span-1"><img src="https://placehold.co/400x400/EBF4FF/1E40AF?text=AG" alt="Foto de Audrik Gonçalves" class="rounded-full mx-auto w-48 h-48 md:w-64 md:h-64 object-cover border-8 border-white shadow-lg"></div>
+                <div class="md:col-span-2 text-center md:text-left">
+                    <h1 class="text-4xl md:text-5xl font-bold text-gray-900">Audrik Duarte Coelho Gonçalves</h1>
+                    <p class="mt-2 text-xl md:text-2xl text-blue-800 font-medium">Estudante de Arquitetura, Urbanismo e Engenharia Civil</p>
+                    <p class="mt-6 text-lg text-gray-600 max-w-2xl mx-auto md:mx-0">Com dupla graduação em andamento, busco aplicar e aprofundar conhecimentos em modelagem BIM e metodologias Lean Construction. Minha paixão é atuar na gestão de projetos e obras, contribuindo com uma visão integrada para criar soluções eficientes e sustentáveis.</p>
+                    <div class="mt-8 flex justify-center md:justify-start space-x-4"><a href="mailto:audrikduarte@gmail.com" class="btn btn-primary">Entrar em Contato</a><a href="#" class="btn btn-secondary">LinkedIn</a></div>
                 </div>
-            </a>
-
-            <div id="arquiteturaTitle" class="home-section-image-title collapsed">
-                <div class="home-section-image-title-bg" style="background-image: url('https://placehold.co/900x120/4A5568/FFFFFF?text=Arquitetura&font=inter');"></div>
-                <h2>Projetos de Arquitetura</h2>
-                <i class="fas fa-chevron-down toggle-icon"></i>
             </div>
-            <div id="architectureProjectList" class="collapsible-list hidden">
-                <a href="#" data-tab-target="projeto1" class="project-list-item main-nav-link-internal">
-                    <div class="project-list-item-bg-image" style="background-image: url('https://placehold.co/600x400/A0AEC0/FFFFFF?text=Projeto+1&font=inter');"></div>
-                    <div class="project-list-item-content">
-                        <h3 class="project-list-item-title">Residência Contemporânea Vale Verde</h3>
-                        <p class="project-list-item-subtitle">Uma exploração da funcionalidade e integração com a natureza.</p>
+            <div class="mt-20">
+                <h2 class="text-3xl font-bold text-center text-gray-900">Habilidades e Competências</h2>
+                <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                    <div class="bg-white p-6 rounded-lg shadow-sm"><h3 class="text-lg font-semibold text-blue-800">Modelagem BIM</h3><p class="mt-2 text-gray-600">Revit, AutoCAD, SketchUp</p></div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm"><h3 class="text-lg font-semibold text-blue-800">Gestão e Planejamento</h3><p class="mt-2 text-gray-600">Lean Construction, ProjectLibre</p></div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm"><h3 class="text-lg font-semibold text-blue-800">Metodologias</h3><p class="mt-2 text-gray-600">Construção Virtual 3D, Inova Civil</p></div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm"><h3 class="text-lg font-semibold text-blue-800">Interpessoais</h3><p class="mt-2 text-gray-600">Comunicação, Proatividade</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Architecture Section -->
+        <section id="architecture" class="page-section">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-900">Projetos de Arquitetura</h1>
+                <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">Explorando a intersecção entre forma, função e significado através de projetos que buscam criar espaços inovadores e sustentáveis.</p>
+            </div>
+            <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project Card 1 -->
+                <a href="#project1" class="project-card nav-trigger">
+                    <img src="https://placehold.co/600x400/1E40AF/FFFFFF?text=Residência+Veredas" alt="[Imagem do projeto Residência Veredas]" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900">Residência Veredas</h3>
+                        <p class="mt-2 text-gray-600">Integração com a natureza em uma residência unifamiliar.</p>
                     </div>
                 </a>
-                <a href="#" data-tab-target="projeto2" class="project-list-item main-nav-link-internal">
-                    <div class="project-list-item-bg-image" style="background-image: url('https://placehold.co/600x400/718096/FFFFFF?text=Projeto+2&font=inter');"></div>
-                    <div class="project-list-item-content">
-                        <h3 class="project-list-item-title">Revitalização Urbana Praça Central</h3>
-                        <p class="project-list-item-subtitle">Transformando espaços públicos para a comunidade.</p>
+                <!-- Project Card 2 -->
+                <a href="#project2" class="project-card nav-trigger">
+                    <img src="https://placehold.co/600x400/1E3A8A/FFFFFF?text=Centro+Cultural" alt="[Imagem do projeto Centro Cultural Flutuante]" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900">Centro Cultural Flutuante</h3>
+                        <p class="mt-2 text-gray-600">Estruturas modulares para um novo ponto de encontro na cidade.</p>
                     </div>
                 </a>
-                <a href="#" data-tab-target="projeto3" class="project-list-item main-nav-link-internal">
-                    <div class="project-list-item-bg-image" style="background-image: url('https://placehold.co/600x400/4A5568/FFFFFF?text=Projeto+3&font=inter');"></div>
-                    <div class="project-list-item-content">
-                        <h3 class="project-list-item-title">Edifício Comercial InovaCenter</h3>
-                        <p class="project-list-item-subtitle">Design inovador para um ambiente de trabalho dinâmico.</p>
-                    </div>
-                </a>
-                 <a href="#" data-tab-target="projeto4" class="project-list-item main-nav-link-internal">
-                    <div class="project-list-item-bg-image" style="background-image: url('https://placehold.co/600x400/2D3748/FFFFFF?text=Projeto+4&font=inter');"></div>
-                    <div class="project-list-item-content">
-                        <h3 class="project-list-item-title">Interiores Corporativos TechHub</h3>
-                        <p class="project-list-item-subtitle">Soluções de design de interiores que refletem a identidade da marca.</p>
-                    </div>
-                </a>
-                 <a href="#" data-tab-target="projeto5" class="project-list-item main-nav-link-internal">
-                    <div class="project-list-item-bg-image" style="background-image: url('https://placehold.co/600x400/1A202C/FFFFFF?text=Projeto+5&font=inter');"></div>
-                    <div class="project-list-item-content">
-                        <h3 class="project-list-item-title">Paisagismo Residencial Oásis</h3>
-                        <p class="project-list-item-subtitle">Criação de espaços externos que convidam à contemplação.</p>
+                <!-- Project Card 3 -->
+                <a href="#project3" class="project-card nav-trigger">
+                    <img src="https://placehold.co/600x400/064E3B/FFFFFF?text=Revitalização+Urbana" alt="[Imagem do projeto Plano de Revitalização Urbana]" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900">Plano de Revitalização Urbana</h3>
+                        <p class="mt-2 text-gray-600">Transformando uma área industrial em um bairro vibrante.</p>
                     </div>
                 </a>
             </div>
+        </section>
 
-            <div id="engenhariaTitle" class="home-section-image-title collapsed"> 
-                <div class="home-section-image-title-bg" style="background-image: url('https://placehold.co/900x120/6B7280/FFFFFF?text=Engenharia+Civil&font=inter');"></div>
-                <h2>Temas em Engenharia Civil</h2> 
-                <i class="fas fa-chevron-down toggle-icon"></i>
+        <!-- Project Detail Sections -->
+        <section id="project1" class="page-section">
+            <div class="text-center"><h1 class="text-4xl md:text-5xl font-bold text-gray-900">Residência Veredas</h1><p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">Um projeto de residência unifamiliar que busca a integração total com a natureza circundante.</p></div>
+            <div class="mt-10 border-b border-gray-200 flex justify-center space-x-2 md:space-x-4">
+                <button class="project-tab active" data-target="p1-desc">Descrição</button>
+                <button class="project-tab" data-target="p1-gallery">Galeria</button>
+                <button class="project-tab" data-target="p1-model">Modelo 3D</button>
             </div>
-            <div id="engineeringTopicList" class="collapsible-list hidden">
-                <a href="#" data-tab-target="engenhariaBIM" class="engineering-topic-item no-bg main-nav-link-internal">
-                    <div class="engineering-topic-item-content">
-                        <h3 class="engineering-topic-item-title">BIM (Building Information Modeling)</h3>
-                        <p class="engineering-topic-item-subtitle">Explorando a modelagem da informação da construção para otimização.</p>
-                    </div>
-                </a>
-                <a href="#" data-tab-target="engenhariaLean" class="engineering-topic-item no-bg main-nav-link-internal">
-                     <div class="engineering-topic-item-content">
-                        <h3 class="engineering-topic-item-title">Lean Construction</h3>
-                        <p class="engineering-topic-item-subtitle">Princípios e práticas para maximizar valor e minimizar desperdícios.</p>
-                    </div>
-                </a>
-                <a href="#" data-tab-target="engenhariaGerenciamento" class="engineering-topic-item no-bg main-nav-link-internal">
-                     <div class="engineering-topic-item-content">
-                        <h3 class="engineering-topic-item-title">Gerenciamento de Projetos</h3>
-                        <p class="engineering-topic-item-subtitle">Metodologias para o planejamento e controle eficaz de obras.</p>
-                    </div>
-                </a>
-                <a href="#" data-tab-target="engenhariaAWP" class="engineering-topic-item no-bg main-nav-link-internal">
-                    <div class="engineering-topic-item-content">
-                       <h3 class="engineering-topic-item-title">Metodologia AWP</h3>
-                       <p class="engineering-topic-item-subtitle">Advanced Work Packaging para otimização da produtividade na construção.</p>
-                   </div>
-               </a>
+            <div class="mt-8">
+                <div id="p1-desc" class="project-tab-content active"><h3 class="text-2xl font-bold mb-4">Conceito do Projeto</h3><p class="text-gray-700 leading-relaxed">A solução explora a iluminação natural e materiais locais para criar um refúgio de paz e sustentabilidade. A volumetria foi concebida para se integrar à topografia, criando pátios internos que promovem a ventilação cruzada e o contato visual constante com o verde.</p><a href="#" class="mt-6 btn btn-primary inline-block">Download do PDF</a></div>
+                <div id="p1-gallery" class="project-tab-content"><div class="grid grid-cols-1 md:grid-cols-3 gap-4 project-gallery"><a href="https://placehold.co/1200x800/1E40AF/FFFFFF?text=Render+Externo" class="gallery-item"><img src="https://placehold.co/600x400/1E40AF/FFFFFF?text=Render+Externo" alt="[Imagem de Render Externo]" class="rounded-lg shadow-md w-full h-full object-cover"></a><a href="https://placehold.co/1200x800/4A5568/FFFFFF?text=Planta+Baixa" class="gallery-item"><img src="https://placehold.co/600x400/4A5568/FFFFFF?text=Planta+Baixa" alt="[Imagem de Planta Baixa]" class="rounded-lg shadow-md w-full h-full object-cover"></a><a href="https://placehold.co/1200x800/A0AEC0/FFFFFF?text=Corte+Esquemático" class="gallery-item"><img src="https://placehold.co/600x400/A0AEC0/FFFFFF?text=Corte+Esquemático" alt="[Imagem de Corte Esquemático]" class="rounded-lg shadow-md w-full h-full object-cover"></a></div></div>
+                <div id="p1-model" class="project-tab-content"><h3 class="text-2xl font-bold mb-4">Modelo 3D Interativo</h3><div class="sketchfab-embed-wrapper"><iframe title="Residência Veredas" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/7ce870af711846dbb113102e900c812a/embed?autostart=0&ui_theme=dark&ui_infos=0&ui_controls=1&ui_watermark=0"></iframe></div></div>
             </div>
+        </section>
 
-        </div>
+        <section id="project2" class="page-section">
+            <div class="text-center"><h1 class="text-4xl md:text-5xl font-bold text-gray-900">Centro Cultural Flutuante</h1><p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">Proposta para um centro cultural sobre as águas, utilizando estruturas modulares e de baixo impacto.</p></div>
+            <div class="mt-10 border-b border-gray-200 flex justify-center space-x-2 md:space-x-4">
+                <button class="project-tab active" data-target="p2-desc">Descrição</button>
+                <button class="project-tab" data-target="p2-gallery">Galeria</button>
+                <button class="project-tab" data-target="p2-model">Modelo 3D</button>
+            </div>
+            <div class="mt-8">
+                <div id="p2-desc" class="project-tab-content active"><h3 class="text-2xl font-bold mb-4">Conceito do Projeto</h3><p class="text-gray-700 leading-relaxed">O projeto visa criar um novo ponto de encontro para a comunidade, promovendo a arte e a cultura em um espaço arquitetônico inovador e flexível, que dialoga diretamente com o seu entorno aquático.</p><a href="#" class="mt-6 btn btn-primary inline-block">Download do PDF</a></div>
+                <div id="p2-gallery" class="project-tab-content"><div class="grid grid-cols-1 md:grid-cols-3 gap-4 project-gallery"><a href="https://placehold.co/1200x800/1E3A8A/FFFFFF?text=Vista+Aérea" class="gallery-item"><img src="https://placehold.co/600x400/1E3A8A/FFFFFF?text=Vista+Aérea" alt="[Imagem de Vista Aérea]" class="rounded-lg shadow-md w-full h-full object-cover"></a><a href="https://placehold.co/1200x800/3B82F6/FFFFFF?text=Implantação" class="gallery-item"><img src="https://placehold.co/600x400/3B82F6/FFFFFF?text=Implantação" alt="[Imagem de Implantação]" class="rounded-lg shadow-md w-full h-full object-cover"></a><a href="https://placehold.co/1200x800/93C5FD/1F2937?text=Diagrama+Funcional" class="gallery-item"><img src="https://placehold.co/600x400/93C5FD/1F2937?text=Diagrama+Funcional" alt="[Imagem de Diagrama Funcional]" class="rounded-lg shadow-md w-full h-full object-cover"></a></div></div>
+                <div id="p2-model" class="project-tab-content"><h3 class="text-2xl font-bold mb-4">Modelo 3D Interativo</h3><div class="sketchfab-embed-wrapper"><iframe title="Centro Cultural" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/07c146209586411589932a3933a04250/embed?autostart=0&ui_theme=dark&ui_infos=0&ui_controls=1&ui_watermark=0"></iframe></div></div>
+            </div>
+        </section>
 
-        <!-- ARCHITECTURE PROJECT PAGES (Projeto 1 to 5) -->
-        <div id="projeto1" class="tab-content">
-            <h1 class="page-title">Residência Contemporânea Vale Verde</h1>
-            <p class="page-subtitle">Uma exploração da funcionalidade e integração com a natureza.</p>
-            <nav class="section-nav"> 
-                <button data-section-target="p1-descritiva" class="section-tab p1-section-tab active-section-tab">Parte Descritiva</button>
-                <button data-section-target="p1-estudo" class="section-tab p1-section-tab">Estudo Preliminar</button>
-                <button data-section-target="p1-preprojeto" class="section-tab p1-section-tab">Pré-Projeto</button>
-                <button data-section-target="p1-anteprojeto" class="section-tab p1-section-tab">Anteprojeto</button>
-                <button data-section-target="p1-3d" class="section-tab p1-section-tab">Visualização 3D</button>
-            </nav>
-            <div id="p1-descritiva" class="project-section-content active content-section"> 
-                <h3>Conceito e Descrição</h3>
-                <div class="prose" id="p1ProseDesc"> 
-                    <p>Este projeto inaugural explora a intersecção entre a funcionalidade residencial contemporânea e a integração harmoniosa com o entorno natural. O conceito central reside na criação de espaços fluidos que maximizam a iluminação natural e promovem uma conexão visual constante com a paisagem circundante. A materialidade busca um equilíbrio entre elementos rústicos e acabamentos modernos, resultando em uma estética acolhedora e sofisticada.</p>
-                    <p>A investigação partiu da análise topográfica do terreno e das condicionantes climáticas locais, como a trajetória solar e os ventos predominantes. Esses fatores foram determinantes para a implantação da edificação e para o desenho das aberturas, visando otimizar o conforto térmico e a eficiência energética. A volumetria foi concebida de forma a minimizar o impacto visual na paisagem, utilizando linhas horizontais e uma paleta de cores que mimetiza os tons naturais da região.</p>
-                </div>
+        <section id="project3" class="page-section">
+            <div class="text-center"><h1 class="text-4xl md:text-5xl font-bold text-gray-900">Plano de Revitalização Urbana</h1><p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">Um estudo de requalificação para uma área industrial abandonada, transformando-a em um bairro vibrante.</p></div>
+            <div class="mt-10 border-b border-gray-200 flex justify-center space-x-2 md:space-x-4">
+                <button class="project-tab active" data-target="p3-desc">Descrição</button>
+                <button class="project-tab" data-target="p3-gallery">Galeria</button>
+                <button class="project-tab" data-target="p3-model">Modelo 3D</button>
             </div>
-            <div id="p1-estudo" class="project-section-content content-section">
-                <h3>Estudo Preliminar</h3>
-                <div class="prose"><p>Documentos e esquemas iniciais de investigação do Projeto 1.</p><img src="https://placehold.co/900x500/E9E9EB/4A5568?text=Esquema+Estudo+Projeto+1&font=inter" alt="[Image of Esquema Estudo Projeto 1]"></div>
+            <div class="mt-8">
+                <div id="p3-desc" class="project-tab-content active"><h3 class="text-2xl font-bold mb-4">Conceito do Projeto</h3><p class="text-gray-700 leading-relaxed">O plano prioriza a mobilidade ativa, espaços verdes e a preservação do patrimônio histórico local, criando um novo polo de convivência e desenvolvimento econômico para a cidade.</p><a href="#" class="mt-6 btn btn-primary inline-block">Download do PDF</a></div>
+                <div id="p3-gallery" class="project-tab-content"><div class="grid grid-cols-1 md:grid-cols-3 gap-4 project-gallery"><a href="https://placehold.co/1200x800/064E3B/FFFFFF?text=Masterplan" class="gallery-item"><img src="https://placehold.co/600x400/064E3B/FFFFFF?text=Masterplan" alt="[Imagem de Masterplan]" class="rounded-lg shadow-md w-full h-full object-cover"></a><a href="https://placehold.co/1200x800/059669/FFFFFF?text=Análise+de+Fluxos" class="gallery-item"><img src="https://placehold.co/600x400/059669/FFFFFF?text=Análise+de+Fluxos" alt="[Imagem de Análise de Fluxos]" class="rounded-lg shadow-md w-full h-full object-cover"></a><a href="https://placehold.co/1200x800/6EE7B7/1F2937?text=Perspectiva+da+Rua" class="gallery-item"><img src="https://placehold.co/600x400/6EE7B7/1F2937?text=Perspectiva+da+Rua" alt="[Imagem de Perspectiva da Rua]" class="rounded-lg shadow-md w-full h-full object-cover"></a></div></div>
+                <div id="p3-model" class="project-tab-content"><h3 class="text-2xl font-bold mb-4">Modelo 3D Interativo</h3><div class="sketchfab-embed-wrapper"><iframe title="Revitalização Urbana" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/5a1b6989d5a94d8b9f1943014e08b9f1/embed?autostart=0&ui_theme=dark&ui_infos=0&ui_controls=1&ui_watermark=0"></iframe></div></div>
             </div>
-            <div id="p1-preprojeto" class="project-section-content content-section">
-                <h3>Pré-Projeto</h3>
-                <div class="prose"><p>Estudos de viabilidade e decisões espaciais iniciais.</p><img src="https://placehold.co/900x500/DFE8FA/3B82F6?text=Planta+Pre-Projeto+1&font=inter" alt="[Image of Planta Pré-Projeto 1]"></div>
-            </div>
-            <div id="p1-anteprojeto" class="project-section-content content-section">
-                <h3>Anteprojeto</h3>
-                <div class="prose"><p>Representações técnicas mais detalhadas.</p><img src="https://placehold.co/900x500/FEE2E2/DC2626?text=Corte+Tecnico+Anteprojeto+1&font=inter" alt="[Image of Corte Técnico Anteprojeto 1]"></div>
-            </div>
-            <div id="p1-3d" class="project-section-content content-section">
-                <h3>Visualização 3D</h3>
-                <div class="prose">
-                    <p>Explore o modelo 3D interativo do projeto abaixo, hospedado no Sketchfab.</p>
-                    <div class="sketchfab-embed-wrapper">
-                        <iframe title="TESTE" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/7ce870af711846dbb113102e900c812a/embed?autostart=0&ui_theme=dark&ui_infos=0&ui_controls=1&ui_watermark=0"> </iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="projeto2" class="tab-content">
-             <h1 class="page-title">Revitalização Urbana Praça Central</h1>
-            <p class="page-subtitle">Transformando espaços públicos para a comunidade.</p>
-             <nav class="section-nav">
-                <button data-section-target="p2-descritiva" class="section-tab p2-section-tab active-section-tab">Parte Descritiva</button>
-                <button data-section-target="p2-estudo" class="section-tab p2-section-tab">Estudo Preliminar</button>
-            </nav>
-            <div id="p2-descritiva" class="project-section-content active content-section">
-                <h3>Conceito e Descrição</h3>
-                 <div class="prose"><p>A proposta para o Projeto 2 foca na revitalização de um espaço urbano subutilizado.</p></div>
-            </div>
-             <div id="p2-estudo" class="project-section-content content-section">
-                <h3>Estudo Preliminar</h3>
-                <div class="prose"><p>Conteúdo do estudo preliminar do Projeto 2.</p><img src="https://placehold.co/900x500/E9E9EB/4A5568?text=Esquema+Estudo+Projeto+2&font=inter" alt="[Image of Esquema Estudo Projeto 2]"></div>
-            </div>
-        </div>
-        <div id="projeto3" class="tab-content"><h1 class="page-title">Edifício Comercial InovaCenter</h1> <p class="page-subtitle">Design inovador para um ambiente de trabalho dinâmico.</p> </div>
-        <div id="projeto4" class="tab-content"><h1 class="page-title">Interiores Corporativos TechHub</h1> <p class="page-subtitle">Soluções de design de interiores que refletem a identidade da marca.</p> </div>
-        <div id="projeto5" class="tab-content"><h1 class="page-title">Paisagismo Residencial Oásis</h1> <p class="page-subtitle">Criação de espaços externos que convidam à contemplação.</p></div>
-
-        <!-- ENGINEERING TOPIC PAGES -->
-        <div id="engenhariaBIM" class="tab-content">
-            <h1 class="page-title">BIM (Building Information Modeling)</h1>
-            <p class="page-subtitle">A Revolução Digital na Construção: Modelagem, Colaboração e Eficiência.</p>
-            <nav class="section-nav">
-                <button data-section-target="bim-conceitos" class="section-tab bim-section-tab active-section-tab">Conceitos Fundamentais</button>
-                <button data-section-target="bim-aplicacoes" class="section-tab bim-section-tab">Aplicações Práticas</button>
-                <button data-section-target="bim-ferramentas" class="section-tab bim-section-tab">Ferramentas e Futuro</button>
-            </nav>
-            <div id="bim-conceitos" class="topic-section-content active content-section">
-                <h3>O que é BIM?</h3>
-                <div class="prose">
-                    <p>O Building Information Modeling (BIM) representa uma transformação fundamental na forma como projetos de arquitetura, engenharia e construção (AEC) são concebidos, desenvolvidos e gerenciados. Indo além do simples desenho 3D, o BIM é um processo inteligente baseado em modelos que integra informações multidisciplinares, permitindo uma visão holística e colaborativa do ciclo de vida de uma edificação.</p>
-                    <p><strong>Principais Conceitos:</strong></p>
-                    <ul>
-                        <li><strong>Modelo Paramétrico Inteligente:</strong> Objetos no modelo BIM (paredes, lajes, tubulações, etc.) contêm dados e atributos que se atualizam dinamicamente com as modificações do projeto.</li>
-                        <li><strong>Colaboração Aprimorada:</strong> Facilita a integração entre diferentes disciplinas (arquitetura, estrutura, instalações), reduzindo conflitos e retrabalho.</li>
-                    </ul>
-                </div>
-            </div>
-            <div id="bim-aplicacoes" class="topic-section-content content-section">
-                <h3>Aplicações e Benefícios</h3>
-                <div class="prose">
-                    <p><strong>Benefícios Chave:</strong></p>
-                    <ul>
-                        <li><strong>Detecção de Interferências (Clash Detection):</strong> Permite identificar e resolver conflitos entre elementos do projeto antes da construção, economizando tempo e custos.</li>
-                        <li><strong>Quantificação Precisa e Orçamentação:</strong> Extração automática de quantitativos de materiais e componentes, auxiliando na elaboração de orçamentos mais precisos.</li>
-                        <li><strong>Planejamento e Simulação 4D/5D:</strong> Integração do modelo com cronogramas (4D) e custos (5D) para simular fases da construção e otimizar o planejamento.</li>
-                        <li><strong>Manutenção e Operação (Facility Management):</strong> O modelo BIM pode ser utilizado durante a fase de operação do edifício, fornecendo informações valiosas para manutenção e gerenciamento.</li>
-                    </ul>
-                    <img src="https://placehold.co/900x450/D1FAE5/065F46?text=Diagrama+Conceitual+BIM&font=inter" alt="[Image of Diagrama Conceitual BIM]">
-                </div>
-            </div>
-            <div id="bim-ferramentas" class="topic-section-content content-section">
-                <h3>Ferramentas e o Futuro do BIM</h3>
-                <div class="prose">
-                    <p>Diversas ferramentas de software suportam o processo BIM, como Autodesk Revit, ArchiCAD, Tekla Structures, entre outras. O futuro do BIM aponta para uma maior integração com tecnologias como Realidade Virtual (VR), Realidade Aumentada (AR), Internet das Coisas (IoT) e Inteligência Artificial (IA), promovendo projetos ainda mais eficientes e edifícios mais inteligentes.</p>
-                    <p>A adoção do BIM não é apenas uma questão de software, mas uma mudança cultural e processual que impulsiona a produtividade, a qualidade e a sustentabilidade na indústria da construção.</p>
-                </div>
-            </div>
-        </div>
-
-        <div id="engenhariaLean" class="tab-content">
-            <h1 class="page-title">Lean Construction (Construção Enxuta)</h1>
-            <p class="page-subtitle">Maximizando Valor e Minimizando Desperdícios na Construção Civil.</p>
-             <nav class="section-nav">
-                <button data-section-target="lean-principios" class="section-tab lean-section-tab active-section-tab">Princípios e Filosofia</button>
-                <button data-section-target="lean-ferramentas" class="section-tab lean-section-tab">Ferramentas e Implementação</button>
-                <button data-section-target="lean-impacto" class="section-tab lean-section-tab">Impacto e Desafios</button>
-            </nav>
-            <div id="lean-principios" class="topic-section-content active content-section">
-                <h3>O que é Lean Construction?</h3>
-                <div class="prose">
-                    <p>Lean Construction, ou Construção Enxuta, é uma filosofia de gerenciamento de produção aplicada à construção civil, derivada dos princípios do Sistema Toyota de Produção. Seu objetivo principal é entregar valor ao cliente de forma contínua, eliminando desperdícios em todas as etapas do processo construtivo.</p>
-                     <p><strong>Pilares Fundamentais:</strong></p>
-                    <ul>
-                        <li><strong>Foco no Valor para o Cliente:</strong> Entender o que realmente agrega valor sob a perspectiva do cliente final.</li>
-                        <li><strong>Mapeamento do Fluxo de Valor:</strong> Identificar todas as etapas do processo, desde a concepção até a entrega, eliminando atividades que não agregam valor.</li>
-                        <li><strong>Fluxo Contínuo:</strong> Organizar o trabalho para que flua de maneira suave e ininterrupta, reduzindo paradas e esperas.</li>
-                        <li><strong>Produção Puxada:</strong> Produzir apenas o necessário, no momento certo, conforme a demanda das etapas subsequentes (ex: sistema Just-In-Time).</li>
-                        <li><strong>Perfeição (Melhoria Contínua - Kaizen):</strong> Buscar constantemente aprimorar processos, produtos e serviços.</li>
-                    </ul>
-                </div>
-            </div>
-            <div id="lean-ferramentas" class="topic-section-content content-section">
-                <h3>Ferramentas e Implementação Prática</h3>
-                 <div class="prose">
-                     <p><strong>Principais Ferramentas Lean:</strong></p>
-                    <ul>
-                        <li><strong>Last Planner System (LPS):</strong> Ferramenta de planejamento e controle colaborativo que envolve os responsáveis pela execução das tarefas (os "últimos planejadores") para aumentar a confiabilidade dos cronogramas.</li>
-                        <li><strong>Gestão Visual:</strong> Utilizar quadros, indicadores e sinais visuais para facilitar a comunicação e o acompanhamento do progresso.</li>
-                        <li><strong>5S (Seiri, Seiton, Seiso, Seiketsu, Shitsuke):</strong> Metodologia para organização e padronização do local de trabalho.</li>
-                    </ul>
-                     <img src="https://placehold.co/900x450/FEF3C7/92400E?text=Ciclo+PDCA+Lean&font=inter" alt="[Image of Ciclo PDCA Lean]">
-                </div>
-            </div>
-             <div id="lean-impacto" class="topic-section-content content-section">
-                <h3>Impacto e Desafios da Lean Construction</h3>
-                 <div class="prose">
-                    <p>A implementação da Lean Construction resulta em canteiros de obras mais organizados, prazos mais curtos, custos reduzidos, maior segurança e satisfação do cliente. No entanto, sua adoção requer uma mudança cultural significativa, comprometimento da alta gestão e treinamento contínuo das equipes.</p>
-                    <p>Superar a resistência à mudança e adaptar os princípios Lean à realidade de cada projeto são desafios comuns, mas os benefícios a longo prazo justificam o esforço.</p>
-                </div>
-            </div>
-        </div>
-
-        <div id="engenhariaGerenciamento" class="tab-content">
-            <h1 class="page-title">Gerenciamento de Projetos na Construção</h1>
-            <p class="page-subtitle">Estratégias e Ferramentas para o Sucesso de Empreendimentos.</p>
-            <nav class="section-nav">
-                <button data-section-target="ger-areas" class="section-tab ger-section-tab active-section-tab">Áreas de Conhecimento</button>
-                <button data-section-target="ger-metodologias" class="section-tab ger-section-tab">Metodologias e Ciclo de Vida</button>
-                <button data-section-target="ger-desafios" class="section-tab ger-section-tab">Desafios e Tendências</button>
-            </nav>
-            <div id="ger-areas" class="topic-section-content active content-section">
-                <h3>Fundamentos do Gerenciamento</h3>
-                <div class="prose">
-                    <p>O Gerenciamento de Projetos na Construção Civil é a aplicação de conhecimentos, habilidades, ferramentas e técnicas às atividades do projeto a fim de atender aos seus requisitos. Envolve o equilíbrio entre escopo, tempo, custo, qualidade, recursos e riscos para alcançar os objetivos do empreendimento.</p>
-                    <p><strong>Áreas de Conhecimento Essenciais (baseado no PMBOK® Guide):</strong></p>
-                    <ul>
-                        <li>Gerenciamento da Integração, Escopo, Cronograma, Custos, Qualidade, Recursos, Comunicações, Riscos, Aquisições e Partes Interessadas.</li>
-                    </ul>
-                </div>
-            </div>
-            <div id="ger-metodologias" class="topic-section-content content-section">
-                <h3>Metodologias e Ciclo de Vida do Projeto</h3>
-                <div class="prose">
-                    <p>Diferentes metodologias podem ser aplicadas, como a tradicional (Waterfall) e as ágeis (Scrum, Kanban), adaptadas ao contexto da construção. O ciclo de vida típico de um projeto de construção inclui fases como iniciação, planejamento, execução, monitoramento e controle, e encerramento.</p>
-                     <img src="https://placehold.co/900x450/E0E7FF/3730A3?text=Fases+do+Projeto&font=inter" alt="[Image of Fases do Projeto]">
-                </div>
-            </div>
-             <div id="ger-desafios" class="topic-section-content content-section">
-                <h3>Desafios Comuns e Tendências Futuras</h3>
-                 <div class="prose">
-                    <p>Os desafios incluem a gestão de prazos apertados, orçamentos limitados, mudanças de escopo, coordenação de múltiplas equipes e imprevistos. As tendências apontam para o uso crescente de tecnologia (BIM, drones, softwares de gerenciamento), foco em sustentabilidade e colaboração aprimorada entre as partes interessadas.</p>
-                    <p>Um gerenciamento de projetos eficaz é crucial para evitar atrasos, estouros de orçamento e problemas de qualidade, garantindo a entrega bem-sucedida de obras complexas.</p>
-                </div>
-            </div>
-        </div>
+        </section>
         
-        <div id="engenhariaAWP" class="tab-content">
-            <h1 class="page-title">Metodologia AWP (Advanced Work Packaging)</h1>
-            <p class="page-subtitle">Otimizando a Produtividade e Previsibilidade em Projetos de Construção.</p>
-            <nav class="section-nav">
-                <button data-section-target="awp-conceitos" class="section-tab awp-section-tab active-section-tab">O que é AWP?</button>
-                <button data-section-target="awp-implementacao" class="section-tab awp-section-tab">Fases e Implementação</button>
-                <button data-section-target="awp-beneficios" class="section-tab awp-section-tab">Benefícios e Estudos de Caso</button>
-            </nav>
-            <div id="awp-conceitos" class="topic-section-content active content-section">
-                <h3>Definição e Princípios</h3>
-                <div class="prose">
-                    <p>Advanced Work Packaging (AWP) é uma metodologia de gerenciamento de projetos de construção que foca no planejamento detalhado e na execução orientada por pacotes de trabalho. O objetivo é melhorar a produtividade da mão de obra no campo, aumentando a previsibilidade e reduzindo custos.</p>
-                    <p><strong>Princípios Fundamentais do AWP:</strong></p>
-                    <ul>
-                        <li><strong>Planejamento com Foco na Execução:</strong> O planejamento começa com o fim em mente, definindo a sequência de instalação e os pacotes de trabalho de construção (CWPs) e pacotes de trabalho de instalação (IWPs).</li>
-                        <li><strong>Alinhamento entre Engenharia, Suprimentos e Construção (EPC):</strong> Garante que os desenhos, materiais e recursos estejam disponíveis antes do início de cada pacote de trabalho.</li>
-                        <li><strong>Quebra Estruturada do Trabalho:</strong> O projeto é decomposto em áreas de construção (CWAs), pacotes de trabalho de construção (CWPs) e pacotes de trabalho de instalação (IWPs), que são gerenciáveis e direcionados às equipes de campo.</li>
-                    </ul>
-                </div>
+        <!-- Engineering Section -->
+        <section id="engineering" class="page-section">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-900">Competências em Engenharia Civil</h1>
+                <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">Minha visão integrada da construção, unindo a precisão da engenharia com a criatividade da arquitetura para otimizar processos e resultados.</p>
             </div>
-            <div id="awp-implementacao" class="topic-section-content content-section">
-                <h3>Fases de Implementação do AWP</h3>
-                 <div class="prose">
-                    <p>A implementação do AWP geralmente segue um fluxo estruturado:</p>
-                    <ol>
-                        <li><strong>Definição do Caminho da Construção (Path of Construction):</strong> Estabelecer a sequência lógica de construção do empreendimento.</li>
-                        <li><strong>Criação de Pacotes de Trabalho de Engenharia (EWPs):</strong> Alinhar a engenharia com a sequência construtiva.</li>
-                        <li><strong>Criação de Pacotes de Trabalho de Suprimentos (PWPs):</strong> Garantir que os materiais cheguem no momento certo para cada CWP.</li>
-                        <li><strong>Desenvolvimento de Pacotes de Trabalho de Construção (CWPs):</strong> Agrupar EWPs e PWPs em escopos gerenciáveis para a construção.</li>
-                        <li><strong>Desenvolvimento de Pacotes de Trabalho de Instalação (IWPs):</strong> Detalhar os CWPs em pacotes menores, tipicamente para uma semana de trabalho de uma equipe específica.</li>
-                    </ol>
-                    <img src="https://placehold.co/900x450/DBEAFE/1E40AF?text=Fluxo+AWP&font=inter" alt="[Image of Fluxo AWP]">
-                </div>
+            <div class="mt-12 space-y-12">
+                <!-- Competency 1: BIM -->
+                <div class="bg-white p-8 rounded-lg shadow-md"><h3 class="text-2xl font-bold text-gray-900 mb-4 border-b pb-3 border-blue-200">Modelagem BIM</h3><div class="grid md:grid-cols-2 gap-8 items-center"><div class="prose max-w-none text-gray-600"><p>Utilizo o Revit para criar modelos 3D inteligentes, focando na detecção de interferências e na extração de quantitativos para orçamentação precisa.</p><h4 class="font-semibold text-gray-800">Aplicação Prática:</h4><p>No projeto da Residência Veredas, a modelagem permitiu a compatibilização das instalações com a estrutura, identificando conflitos que seriam onerosos na fase de obra.</p><a href="#project1" class="text-blue-600 hover:underline font-semibold nav-trigger">Ver aplicação no projeto &rarr;</a></div><div class="bg-gray-100 rounded-lg p-4 h-48 flex items-center justify-center text-gray-500"><span>[Espaço para Diagrama de Fluxo BIM]</span></div></div></div>
+                <!-- Competency 2: Lean Construction -->
+                <div class="bg-white p-8 rounded-lg shadow-md"><h3 class="text-2xl font-bold text-gray-900 mb-4 border-b pb-3 border-blue-200">Lean Construction</h3><div class="grid md:grid-cols-2 gap-8 items-center"><div class="prose max-w-none text-gray-600"><p>Como membro da Liga Acadêmica de Lean, aplico os princípios da construção enxuta para identificar e eliminar desperdícios, otimizando o fluxo de trabalho.</p><h4 class="font-semibold text-gray-800">Aplicação Prática:</h4><p>Desenvolvimento de um plano de ataque para um canteiro de obras hipotético, utilizando planejamento colaborativo para reduzir o tempo de ciclo em 15%.</p></div><div class="bg-gray-100 rounded-lg p-4 h-48 flex items-center justify-center text-gray-500"><span>[Espaço para Diagrama de Last Planner]</span></div></div></div>
+                <!-- Competency 3: AWP -->
+                <div class="bg-white p-8 rounded-lg shadow-md"><h3 class="text-2xl font-bold text-gray-900 mb-4 border-b pb-3 border-blue-200">Metodologia AWP</h3><div class="grid md:grid-cols-2 gap-8 items-center"><div class="prose max-w-none text-gray-600"><p>Estudo e aplico os conceitos de Advanced Work Packaging para estruturar o planejamento com foco na execução, quebrando o projeto em pacotes de trabalho gerenciáveis.</p><h4 class="font-semibold text-gray-800">Aplicação Prática:</h4><p>Estruturação de um plano de trabalho para o Plano de Revitalização Urbana, definindo o "Path of Construction" para otimizar a sequência de intervenções.</p><a href="#project3" class="text-blue-600 hover:underline font-semibold nav-trigger">Ver aplicação no projeto &rarr;</a></div><div class="bg-gray-100 rounded-lg p-4 h-48 flex items-center justify-center text-gray-500"><span>[Espaço para Diagrama de Fluxo AWP]</span></div></div></div>
             </div>
-             <div id="awp-beneficios" class="topic-section-content content-section">
-                <h3>Benefícios e Estudos de Caso</h3>
-                <div class="prose">
-                    <p><strong>Principais Benefícios do AWP:</strong></p>
-                    <ul>
-                        <li>Aumento da produtividade da mão de obra no campo ("Time on Tools").</li>
-                        <li>Melhora na previsibilidade de prazos e custos.</li>
-                        <li>Redução de retrabalho e desperdícios.</li>
-                        <li>Maior segurança no canteiro de obras.</li>
-                        <li>Melhor alinhamento e comunicação entre as equipes.</li>
-                    </ul>
-                    <p>Diversos estudos de caso em grandes projetos industriais e de infraestrutura demonstram ganhos significativos com a adoção da metodologia AWP, tornando-a uma prática recomendada pelo Construction Industry Institute (CII).</p>
-                </div>
-            </div>
-        </div>
-
-
-        <!-- Author Content -->
-        <div id="autor" class="tab-content author-section">
-            <h1 class="page-title">Sobre o Autor</h1>
-            <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
-                <img src="https://placehold.co/200x200/007AFF/FFFFFF?text=Autor&font=inter" alt="[Image of Foto do Autor]" class="author-image flex-shrink-0 mx-auto md:mx-0">
-                <div class="text-center md:text-left">
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-1">Nome do Estudante</h3>
-                    <p class="text-gray-600 mb-4 text-md">Estudante de Arquitetura e Urbanismo & Engenharia Civil</p>
-                    <div class="prose">
-                        <p>Uma breve biografia sobre o estudante, suas paixões na arquitetura e engenharia, áreas de interesse, filosofia de design e aspirações futuras. Este espaço é ideal para compartilhar sua jornada e visão como futuro Arquiteto e Engenheiro Civil, destacando projetos e experiências relevantes.</p>
-                        <p><strong>Habilidades Chave:</strong> Desenho Técnico Avançado, Modelagem 3D (SketchUp, Revit, Rhino), Análise Estrutural, Renderização Fotorealista (V-Ray, Lumion, Enscape), Pós-produção (Photoshop, Illustrator), Concepção Criativa de Projetos, Planejamento Urbano Sustentável, Gerenciamento de Obras.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="mt-10 pt-8 border-t border-gray-200 contact-info">
-                <h4 class="text-xl font-semibold text-gray-700 mb-4">Contato e Redes Sociais</h4>
-                <p><i class="fas fa-envelope fa-fw mr-2 text-gray-400"></i>email.do.estudante@example.com</p>
-                <p><i class="fas fa-phone fa-fw mr-2 text-gray-400"></i>(XX) XXXXX-XXXX</p>
-                <div class="mt-5 space-x-4 social-links">
-                    <a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a>
-                    <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
-                    <a href="#"><i class="fab fa-behance-square"></i> Behance</a>
-                </div>
-            </div>
-        </div>
-        
+        </section>
     </main>
-     <button id="backToHomeBtn" title="Voltar à Página Inicial" style="display: none;">
-        <i class="fas fa-home"></i> 
-    </button>
-     <button id="backToTopBtn" title="Voltar ao topo">
-        <i class="fas fa-arrow-up"></i>
-    </button>
-    <footer id="mainFooter">
-        <p>&copy; <span id="currentYear"></span> Nome do Estudante. Todos os direitos reservados.</p>
-        <div class="footer-social-links">
-            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="#" aria-label="Behance"><i class="fab fa-behance-square"></i></a>
+
+    <!-- Footer -->
+    <footer class="bg-blue-900 mt-12">
+        <div class="container mx-auto px-6 py-8 text-center text-gray-300">
+            <p>&copy; 2024 Audrik Duarte Coelho Gonçalves. Todos os direitos reservados.</p>
+            <p class="mt-2 text-sm">Desenvolvido com uma estética limpa e foco no design.</p>
         </div>
     </footer>
 
+    <!-- Botões Flutuantes -->
+    <button id="back-button" class="hidden fixed bottom-5 left-5 bg-gray-700 hover:bg-gray-600 text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center z-50 transition-opacity duration-300"><i class="fas fa-arrow-left"></i></button>
+    <button id="back-to-top" class="hidden fixed bottom-5 right-5 bg-blue-800 hover:bg-blue-700 text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center z-50 transition-opacity duration-300"><i class="fas fa-arrow-up"></i></button>
+
+    <!-- Image Modal -->
+    <div id="image-modal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center p-4 z-50 hidden opacity-0">
+        <div id="image-modal-content" class="relative bg-white p-2 rounded-lg max-w-4xl max-h-full transform scale-95"><img id="modal-img" src="" alt="Visualização ampliada da imagem do projeto" class="max-w-full max-h-[90vh] rounded"><button id="modal-close" class="absolute -top-4 -right-4 bg-white text-blue-900 rounded-full h-10 w-10 flex items-center justify-center text-2xl font-bold shadow-lg">&times;</button></div>
+    </div>
+
     <script>
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
-
-        // Selectors
-        const headerLogo = document.querySelector('.header-logo'); 
-        const internalNavLinks = document.querySelectorAll('.main-nav-link-internal'); 
-        const tabContents = document.querySelectorAll('#mainContent .tab-content');
-        const arquiteturaTitle = document.getElementById('arquiteturaTitle');
-        const architectureProjectList = document.getElementById('architectureProjectList');
-        const engenhariaTitle = document.getElementById('engenhariaTitle');
-        const engineeringTopicList = document.getElementById('engineeringTopicList');
-        const backToTopBtn = document.getElementById('backToTopBtn');
-        const backToHomeBtn = document.getElementById('backToHomeBtn');
-
-
-        // Back to Top Button Logic
-        window.onscroll = function() {scrollFunction()};
-
-        function scrollFunction() {
-          if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-            if(backToTopBtn) backToTopBtn.classList.add('show');
-          } else {
-            if(backToTopBtn) backToTopBtn.classList.remove('show');
-          }
-        }
-
-        if(backToTopBtn) {
-            backToTopBtn.addEventListener('click', () => {
-              window.scrollTo({top: 0, behavior: 'smooth'});
-            });
-        }
-        
-        // Back to Home Button Logic
-        if(backToHomeBtn) {
-            backToHomeBtn.addEventListener('click', (e) => {
-                setActiveTab('homePage', e); 
-            });
-        }
-        
-        function setActiveTab(targetId, clickEvent = null) { 
-            tabContents.forEach(content => {
-                content.classList.remove('active');
-                if (content.id === targetId) {
-                    content.classList.add('active');
-                }
-            });
+        document.addEventListener('DOMContentLoaded', function () {
+            const navTriggers = document.querySelectorAll('.nav-trigger');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.page-section');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            const modal = document.getElementById('image-modal');
+            const modalImg = document.getElementById('modal-img');
+            const modalClose = document.getElementById('modal-close');
+            const modalContent = document.getElementById('image-modal-content');
+            const backButton = document.getElementById('back-button');
+            const backToTopButton = document.getElementById('back-to-top');
             
-            if (backToHomeBtn) {
-                if (targetId === 'homePage') {
-                    backToHomeBtn.classList.remove('show');
+            let historyStack = ['#home'];
+
+            function updateHistory(hash) {
+                if (historyStack[historyStack.length - 1] !== hash) {
+                    historyStack.push(hash);
+                }
+                backButton.classList.toggle('hidden', historyStack.length <= 1);
+            }
+
+            function showSection(hash, isBack = false) {
+                const targetHash = hash || '#home';
+                sections.forEach(section => section.classList.remove('active'));
+                const targetSection = document.querySelector(targetHash);
+                if (targetSection) targetSection.classList.add('active');
+
+                // Update nav link active state
+                const architectureLink = document.querySelector('a.nav-link[href="#architecture"]');
+                navLinks.forEach(link => link.classList.remove('active'));
+                
+                if (targetHash.startsWith('#project')) {
+                    if(architectureLink) architectureLink.classList.add('active');
                 } else {
-                    backToHomeBtn.classList.add('show');
-                }
-            }
-            
-            const activeContentElement = document.getElementById(targetId);
-            if (activeContentElement && (targetId.startsWith('projeto') || targetId.startsWith('engenharia'))) {
-                resetActiveSection(targetId); 
-            }
-           
-            const isHomePageActive = document.getElementById('homePage').classList.contains('active');
-            const eventTarget = clickEvent ? clickEvent.target : null; 
-            
-            let isTogglingAccordion = false;
-            if (eventTarget instanceof Element) { 
-                const isTogglingArchitecture = arquiteturaTitle && (arquiteturaTitle.contains(eventTarget) || eventTarget.closest('#arquiteturaTitle'));
-                const isTogglingEngineering = engenhariaTitle && (engenhariaTitle.contains(eventTarget) || eventTarget.closest('#engenhariaTitle'));
-                if (isTogglingArchitecture || isTogglingEngineering) {
-                    isTogglingAccordion = true;
-                }
-            }
-
-            if (!(isHomePageActive && isTogglingAccordion)) {
-                 window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-        }
-
-        if (headerLogo) {
-            headerLogo.addEventListener('click', (e) => {
-                e.preventDefault();
-                setActiveTab(headerLogo.dataset.tabTarget, e); 
-                [architectureProjectList, engineeringTopicList].forEach(list => {
-                    if (list && list.classList.contains('visible')) {
-                        list.classList.remove('visible');
-                        list.classList.add('hidden');
-                        list.style.maxHeight = '0';
-                        list.style.opacity = '0';
-                        const titleElement = list.previousElementSibling; 
-                        if (titleElement && titleElement.classList.contains('home-section-image-title')) {
-                             titleElement.classList.add('collapsed');
-                             const icon = titleElement.querySelector('.toggle-icon');
-                             if (icon) icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
-                        }
-                    }
-                });
-            });
-        }
-
-        internalNavLinks.forEach(link => {
-             link.addEventListener('click', (e) => {
-                e.preventDefault();
-                setActiveTab(link.dataset.tabTarget, e); 
-            });
-        });
-
-        function setupAccordion(titleElement, listElement) {
-            if (!titleElement || !listElement) return;
-
-            if (titleElement.classList.contains('collapsed')) {
-                listElement.classList.add('hidden');
-                listElement.classList.remove('visible');
-                listElement.style.maxHeight = '0';
-                listElement.style.opacity = '0';
-                const icon = titleElement.querySelector('.toggle-icon');
-                if(icon) icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
-            } else { 
-                listElement.classList.add('visible');
-                listElement.classList.remove('hidden');
-                 requestAnimationFrame(() => { 
-                    listElement.style.maxHeight = listElement.scrollHeight + "px";
-                 });
-                listElement.style.opacity = '1';
-                const icon = titleElement.querySelector('.toggle-icon');
-                if(icon) icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
-            }
-
-
-            titleElement.addEventListener('click', (event) => { 
-                const clickedItemIsLinkInsideList = event.target.closest('.main-nav-link-internal');
-                if (clickedItemIsLinkInsideList && listElement.contains(clickedItemIsLinkInsideList)) {
-                    return; 
+                    const activeLink = document.querySelector(`a.nav-link[href="${targetHash}"]`);
+                    if (activeLink) activeLink.classList.add('active');
                 }
                 
-                const icon = titleElement.querySelector('.toggle-icon');
-                if (listElement.classList.contains('hidden')) {
-                    listElement.classList.remove('hidden');
-                    listElement.classList.add('visible');
-                    listElement.style.maxHeight = 'none'; 
-                    const scrollHeight = listElement.scrollHeight;
-                    listElement.style.maxHeight = '0'; 
-                    requestAnimationFrame(() => { 
-                        listElement.style.maxHeight = scrollHeight + "px";
-                        listElement.style.opacity = '1';
-                    });
-                    titleElement.classList.remove('collapsed');
-                    if (icon) icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
-                } else {
-                    listElement.style.maxHeight = listElement.scrollHeight + "px";
-                    requestAnimationFrame(() => {
-                        listElement.style.maxHeight = '0';
-                        listElement.style.opacity = '0';
-                        setTimeout(() => {
-                            listElement.classList.add('hidden');
-                            listElement.classList.remove('visible');
-                        }, 450); 
-                    });
-                    titleElement.classList.add('collapsed');
-                    if (icon) icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
+                if (!isBack) {
+                    updateHistory(targetHash);
                 }
-            });
-        }
-
-        setupAccordion(arquiteturaTitle, architectureProjectList);
-        setupAccordion(engenhariaTitle, engineeringTopicList);
-        
-        function resetActiveSection(pageId) {
-            const pageContainer = document.getElementById(pageId);
-            if (!pageContainer) return;
-
-            const sectionTabs = pageContainer.querySelectorAll('.section-tab'); 
-            const sectionContents = pageContainer.querySelectorAll('.topic-section-content, .project-section-content'); 
-
-            if (sectionTabs.length === 0 || sectionContents.length === 0) return;
-
-            sectionTabs.forEach((tab, index) => {
-                tab.classList.remove('active-section-tab');
-                if (index === 0) tab.classList.add('active-section-tab');
-            });
-            sectionContents.forEach((content, index) => {
-                content.classList.remove('active');
-                if (index === 0) content.classList.add('active');
-            });
-        }
-
-        function initializePageSectionTabs() {
-            const allPagesWithSections = document.querySelectorAll('.tab-content[id^="projeto"], .tab-content[id^="engenharia"]');
-            allPagesWithSections.forEach(pageContainer => {
-                const sectionTabs = pageContainer.querySelectorAll(`.section-tab`); 
                 
-                if(sectionTabs.length === 0) return;
+                mobileMenu.classList.add('hidden');
+                window.scrollTo(0, 0);
+            }
 
-                sectionTabs.forEach(tab => {
-                    tab.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        const targetId = tab.dataset.sectionTarget;
-                        
-                        tab.parentElement.querySelectorAll('.section-tab').forEach(innerTab => innerTab.classList.remove('active-section-tab'));
-                        tab.classList.add('active-section-tab');
-                        
-                        const parentContentPage = tab.closest('.tab-content');
-                        if(parentContentPage){
-                            parentContentPage.querySelectorAll('.topic-section-content, .project-section-content').forEach(content => {
-                                content.classList.remove('active');
-                            });
-                            const targetContent = parentContentPage.querySelector(`#${targetId}`);
-                            if(targetContent) targetContent.classList.add('active');
-                        }
-                    });
+            navTriggers.forEach(trigger => {
+                trigger.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetHash = this.getAttribute('href');
+                    history.pushState(null, null, targetHash);
+                    showSection(targetHash);
                 });
             });
-        }
-        
-        document.addEventListener('DOMContentLoaded', () => {
-            setActiveTab('homePage'); 
-            initializePageSectionTabs(); 
             
-            [arquiteturaTitle, engenhariaTitle].forEach(titleEl => {
-                if (titleEl) {
-                    const listEl = titleEl.nextElementSibling; 
-                    if (listEl && listEl.classList.contains('collapsible-list')) {
-                         if (titleEl.classList.contains('collapsed')) { 
-                            listEl.classList.add('hidden');
-                            listEl.classList.remove('visible');
-                            listEl.style.maxHeight = '0';
-                            listEl.style.opacity = '0';
-                            const icon = titleEl.querySelector('.toggle-icon');
-                            if(icon) {
-                                icon.classList.remove('fa-chevron-up'); 
-                                icon.classList.add('fa-chevron-down');
-                            }
-                        } else { 
-                            listEl.classList.add('visible');
-                            listEl.classList.remove('hidden');
-                             requestAnimationFrame(() => { 
-                                listEl.style.maxHeight = listEl.scrollHeight + "px";
-                             });
-                            listEl.style.opacity = '1';
-                             const icon = titleEl.querySelector('.toggle-icon');
-                            if(icon) {
-                                icon.classList.remove('fa-chevron-down'); 
-                                icon.classList.add('fa-chevron-up');
-                            }
-                        }
-                    }
+            mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+            galleryItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    modalImg.setAttribute('src', this.getAttribute('href'));
+                    modal.classList.remove('hidden');
+                    setTimeout(() => modal.classList.remove('opacity-0'), 10);
+                });
+            });
+
+            function closeModal() {
+                modal.classList.add('opacity-0');
+                setTimeout(() => modal.classList.add('hidden'), 300);
+            }
+
+            modalClose.addEventListener('click', closeModal);
+            modal.addEventListener('click', closeModal);
+            modalContent.addEventListener('click', (e) => e.stopPropagation());
+            
+            document.querySelectorAll('.project-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const parent = tab.closest('.page-section');
+                    parent.querySelectorAll('.project-tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    parent.querySelectorAll('.project-tab-content').forEach(c => c.classList.remove('active'));
+                    parent.querySelector(`#${tab.dataset.target}`).classList.add('active');
+                });
+            });
+
+            backButton.addEventListener('click', () => {
+                if (historyStack.length > 1) {
+                    historyStack.pop();
+                    const previousHash = historyStack[historyStack.length - 1];
+                    history.pushState(null, null, previousHash);
+                    showSection(previousHash, true);
                 }
             });
-        });
 
+            window.addEventListener('scroll', () => {
+                backToTopButton.classList.toggle('hidden', window.scrollY <= 300);
+            });
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            const initialHash = window.location.hash || '#home';
+            showSection(initialHash);
+        });
     </script>
 </body>
 </html>
+
